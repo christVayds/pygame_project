@@ -142,10 +142,11 @@ class Player(pygame.sprite.Sprite):
 
     def handleCollision(self, objects):
         for obj in objects:
-            if self.rect.y > obj.rect.y:
-                obj.front = True
-            elif self.rect.y <= obj.rect.y:
-                obj.front = False
+            if self.left or self.right:
+                if self.rect.y > obj.rect.y:
+                    obj.front = True
+                elif self.rect.y <= obj.rect.y:
+                    obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
                 if self.left:
