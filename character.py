@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self, screen, allObj):
 
         # handle collision
-        # self.handleCollision(allObj)
+        self.handleCollision(allObj)
 
         # get key events
         keys = pygame.key.get_pressed()
