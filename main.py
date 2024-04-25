@@ -13,8 +13,6 @@ developers:
     3. Ethan Diego Lim
 
 Date started: April 16, 2024
-
-labyu
 """
 
 import pygame
@@ -46,12 +44,13 @@ player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) /
 # enemies
 enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 
+# list of enemies
 listenemies = [enemy1]
 
 # OBJECTS
 listofobj = [
         {'name': '7', 'type': 'Stone', 'rect': (50, 200, 50, 50), 'collide': True},
-        {'name': '7', 'type': 'Stone', 'rect': (50, 300, 50, 50), 'collide': True}
+        {'name': '7', 'type': 'Stone', 'rect': (50, 250, 50, 50), 'collide': True}
     ]
 
 # create objects for blocks

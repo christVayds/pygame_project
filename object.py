@@ -30,6 +30,7 @@ class Object(pygame.sprite.Sprite):
     def move_y(self, direction):
         self.rect.y += direction
 
+# soon
 class animatedObjects(pygame.sprite.Sprite):
 
     def __init__(self, x, y, width, height, _type='', name=''):

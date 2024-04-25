@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.life = self.defaultLife
 
         # speed
-        self.speed = 3
+        self.speed = 5
         self.walk = 0
 
         # rect and surface
@@ -174,7 +174,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = pygame.Rect((x, y), (self.width, self.height))
         self.image = pygame.Surface((self.width, self.height))
 
-        self.speed = random.choice([2,2.5,3,3.5,4,4.5])
+        self.speed = random.choice([2.5, 3, 3.5])
 
         # facing
         self.left = True
