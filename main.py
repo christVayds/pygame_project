@@ -13,8 +13,6 @@ developers:
     3. Ethan Diego Lim
 
 Date started: April 16, 2024
-
-nice
 """
 
 import pygame
@@ -70,7 +68,7 @@ def draw():
     create.draw()
 
     # draw enemy
-    enemy1.draw(window)
+    enemy1.draw(window, create.listofObjects[1:])
     enemy1.follow(player)
 
     # draw player

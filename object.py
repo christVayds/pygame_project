@@ -22,7 +22,7 @@ class Object(pygame.sprite.Sprite):
 
         screen.blit(image, self.rect)
 
-        pygame.draw.rect(screen, (255,255,255), self.rect, 1)
+        # pygame.draw.rect(screen, (255,255,255), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction
