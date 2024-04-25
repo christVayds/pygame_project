@@ -20,6 +20,7 @@ from character import *
 from object import *
 from create import Create
 from camera import Camera
+from lab import TileMap
 
 # initialize pygame
 pygame.init()
@@ -38,6 +39,9 @@ objects = []
 items = []
 enimies = []
 
+# MAP
+map1 = TileMap(25, 0, 0)
+
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
 
@@ -46,6 +50,7 @@ enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 
 # list of enemies
 listenemies = [enemy1]
+listOfMap = [map1]
 
 # OBJECTS
 listofobj = [
@@ -53,7 +58,7 @@ listofobj = [
         {'name': '7', 'type': 'Stone', 'rect': (50, 250, 50, 50), 'collide': True}
     ]
 
-# create objects for blocks
+# create objects for blocks and other objects
 create = Create(window, player, listofobj)
 create.create()
 
@@ -64,6 +69,9 @@ camera = Camera(player, windowSize)
 def draw():
     window.fill((54, 54, 54))
 
+    # map
+    map1.drawMap(window)
+
     # draw object
     create.draw()
 
@@ -72,7 +80,7 @@ def draw():
     enemy1.follow(player)
 
     # draw player
-    allobj = create.listofObjects+listenemies # list of object fron index 1 - ...N
+    allobj = create.listofObjects+listenemies+listOfMap # list of object fron index 1 - ...N
     player.draw(window, create.listofObjects[1:])
 
     # the camera
