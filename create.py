@@ -5,6 +5,7 @@ class Create:
 
     def __init__(self, screen, player, list_obj):
         self.screen = screen
+        self.player = player
         self.listofObjects = [player]
         self.list_obj = list_obj
 

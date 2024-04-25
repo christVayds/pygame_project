@@ -41,23 +41,20 @@ enimies = []
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
 
+# enemies
+enemy1 = Enemy(100, 100, 50, 50, 'goblin')
+
+listenemies = [enemy1]
+
 # OBJECTS
 listofobj = [
-        {'name': '7', 'type': 'Stone', 'rect': (50, 100, 50, 50), 'collide': True},
+        {'name': '7', 'type': 'Stone', 'rect': (50, 200, 50, 50), 'collide': True},
         {'name': '7', 'type': 'Stone', 'rect': (50, 300, 50, 50), 'collide': True}
-    ]
-
-listofenemy = [
-        {'name': 'goblin', 'rect': (30, 100, 100, 100)}
     ]
 
 # create objects for blocks
 create = Create(window, player, listofobj)
 create.create()
-
-# create enemies
-# enemies = Create(window, player, listofenemy)
-# enemies.enemy()
 
 # camera
 camera = Camera(player, windowSize)
@@ -70,11 +67,12 @@ def draw():
     create.draw()
 
     # draw enemy
-    # enemies.draw()
+    enemy1.draw(window)
+    enemy1.follow(player)
 
     # draw player
-    allobj = create.listofObjects # list of object fron index 1 - ...N
-    player.draw(window, create.listofObjects)
+    allobj = create.listofObjects+listenemies # list of object fron index 1 - ...N
+    player.draw(window, create.listofObjects[1:])
 
     # the camera
     camera.move(allobj)

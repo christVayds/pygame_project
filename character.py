@@ -176,6 +176,13 @@ class Enemy(pygame.sprite.Sprite):
 
         self.speed = random.choice([2,2.5,3,3.5,4,4.5])
 
+        # facing
+        self.left = True
+        self.right = False
+        self.up = False
+        self.down = False
+        self.walk = 0 # count of walk
+
         # images / character
         self.e_left = []
         self.e_right = []
@@ -183,30 +190,24 @@ class Enemy(pygame.sprite.Sprite):
         self.loadImages()
         self.flipImage()
 
-        # facing
-        self.left = False
-        self.right = True
-        self.up = False
-        self.down = False
-        self.walk = 0 # count of walk
-
     def draw(self, screen):
         
         if (self.walk + 1) >= 21:
             self.walk = 0
+
         if self.left or self.up:
-            screen.blit(self.e_left[self.walk//3], (self.width, self.height))
+            screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         elif self.right or self.down:
-            screen.blit(self.e_right[self.walk//3], (self.width, self.height))
+            screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         else:
             if self.left:
-                screen.blit(self.e_left[0], (self.width, self.height))
+                screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
             elif self.right:
-                screen.blit(self.e_right[0], self.width, self.height)
+                screen.blit(self.e_right[0], self.rect.x, self.rect.y)
 
-        # pygame.draw.rect(screen (255, 255, 255), self.rect, 1)
+        pygame.draw.rect(screen, (255, 255, 255), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction
@@ -216,36 +217,36 @@ class Enemy(pygame.sprite.Sprite):
 
     def follow(self, player):
         if player.life > 0:
-            if self.rect.x > player.rect.x + 30:
+            if self.rect.x > player.rect.x + 35:
                 self.left = True
                 self.right = False
                 self.up = False
                 self.down = False
                 self.move_x(self.speed * -1)
-            elif self.rect.x < player.rect.x - 30:
+            elif self.rect.x < player.rect.x - 35:
                 self.left = False
                 self.right = True
                 self.up = False
                 self.down = False
                 self.move_x(self.speed)
-            elif self.rect.y > player.rect.y - 30:
+            elif self.rect.y > player.rect.y + 35:
                 self.left = False
                 self.right = False
                 self.up = True
                 self.down = False
-                self.move_y(self.speed)
-            elif self.rect.y < player.rect.y + 30:
+                self.move_y(self.speed * -1)
+            elif self.rect.y < player.rect.y - 35:
                 self.left = False
                 self.right = False
                 self.up = False
                 self.down = True
-                self.move_y(self.speed * -1)
+                self.move_y(self.speed)
             else:
                 self.walk = 0
 
     def loadImages(self):
         for character in range(7):
-            image = f'characters/first.png'
+            image = f'characters/goblin/S_Walk_{character+1}.png'
             image = pygame.image.load(image)
             image = pygame.transform.scale(image, (self.width, self.height))
             self.e_left.append(image)
