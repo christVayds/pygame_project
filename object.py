@@ -12,6 +12,9 @@ class Object(pygame.sprite.Sprite):
         # if player is above or bellow the object
         self.front = False
 
+        # enemies in front of abj
+        self.e_front = []
+
         self.rect = pygame.Rect((x, y), (self.width, self.height)) # oject rect
         self.collision = pygame.Rect((x, y), (self.width, self.height)) # object collision rect
         self.image = pygame.Surface((self.width, self.height)) # object surface

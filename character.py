@@ -193,7 +193,6 @@ class Enemy(pygame.sprite.Sprite):
         self.up = False
         self.down = False
         self.walk = 0 # count of walk
-        self.front = False
 
         # images / character
         self.e_left = []
@@ -278,11 +277,13 @@ class Enemy(pygame.sprite.Sprite):
     # enemies collision
     def handleCollision(self, objects):
         for object in objects:
-            if self.left or self.right:
-                if self.rect.y > object.rect.y:
-                    self.front = True
-                elif self.rect.y <= object.rect.y:
-                    self.front = False
+            if object._type != 'hidden2':
+                if self.left or self.right:
+                    if self.rect.y > object.rect.y:
+                        object.e_front.append(self)
+                    elif self.rect.y <= object.rect.y:
+                        if self in object.e_front:
+                            object.e_front.remove(self)
             if pygame.sprite.collide_mask(self, object):
                 if object._type != 'hidden2':
                     if self.left:
@@ -292,10 +293,10 @@ class Enemy(pygame.sprite.Sprite):
                         if self.rect.y <= object.rect.y:
                             self.rect.right = object.rect.left
 
-                    elif self.up and self.front:
+                    elif self.up and self in object.e_front:
                         if self.rect.top < object.rect.bottom - 40:
                             self.rect.top = object.rect.bottom - 40
-                    elif self.down and not(self.front):
+                    elif self.down and self not in object.e_front:
                         self.rect.bottom = object.rect.top
                 else:
                     if self.right:

@@ -75,6 +75,23 @@ listofobj = [
         {'name': 'hidden', 'type': 'hidden', 'rect': (630, 200, 520, 50)},
         {'name': 'hidden', 'type': 'hidden2', 'rect': (1300, 175, 25, 325)},
         {'name': 'hidden', 'type': 'hidden', 'rect': (1200, 200, 100, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1325, 225, 100, 25)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (1325, 275, 100, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (1275, 25, 200, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1250, 25, 25, 125)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1475, 25, 25, 1025)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (675, 675, 25, 250)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1175, 675, 25, 250)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1325, 675, 25, 375)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (450, 675, 50, 25)}, # for extecd door
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (575, 675, 300, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (950, 675, 375, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (675, 900, 500, 25)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (675, 950, 525, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (450, 725, 50, 50)}, # for extend door
+        {'name': 'hidden', 'type': 'hidden', 'rect': (575, 725, 100, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (700, 725, 175, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (950, 725, 400, 50)},
     ]
 
 # create objects for blocks and other objects
