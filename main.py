@@ -46,8 +46,6 @@ enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 # OBJECTS
 listofobj = [
         # objects
-        {'name': '7', 'type': 'Stone', 'rect': (50, 200, 50, 50), 'collide': True},
-        {'name': '7', 'type': 'Stone', 'rect': (50, 250, 50, 50), 'collide': True},
         {'name': 'book_shelf', 'type': 'other', 'rect': (450, 190, 70, 90)},
         {'name': 'book_shelf', 'type': 'other', 'rect': (520, 190, 70, 90)},
         {'name': 'monitor_1', 'type': 'other', 'rect': (650, 180, 50, 50)},
