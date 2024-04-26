@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.life = self.defaultLife
 
         # speed
-        self.speed = 5
+        self.speed = 7
         self.walk = 0
 
         # rect and surface
@@ -284,15 +284,25 @@ class Enemy(pygame.sprite.Sprite):
                 elif self.rect.y <= object.rect.y:
                     self.front = False
             if pygame.sprite.collide_mask(self, object):
-                if self.left:
-                    if self.rect.y <= object.rect.y:
-                        self.rect.left = object.rect.right
-                elif self.right:
-                    if self.rect.y <= object.rect.y:
-                        self.rect.right = object.rect.left
+                if object._type != 'hidden2':
+                    if self.left:
+                        if self.rect.y <= object.rect.y:
+                            self.rect.left = object.rect.right
+                    elif self.right:
+                        if self.rect.y <= object.rect.y:
+                            self.rect.right = object.rect.left
 
-                elif self.up and self.front:
-                    if self.rect.top < object.rect.bottom - 40:
-                        self.rect.top = object.rect.bottom - 40
-                elif self.down and not(self.front):
-                    self.rect.bottom = object.rect.top
+                    elif self.up and self.front:
+                        if self.rect.top < object.rect.bottom - 40:
+                            self.rect.top = object.rect.bottom - 40
+                    elif self.down and not(self.front):
+                        self.rect.bottom = object.rect.top
+                else:
+                    if self.right:
+                        self.rect.right = object.rect.left
+                    elif self.left:
+                        self.rect.left = object.rect.right
+                    elif self.up:
+                        self.rect.top = object.rect.bottom
+                    elif self.down:
+                        self.rect.bottom = object.rect.top

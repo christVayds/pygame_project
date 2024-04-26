@@ -22,8 +22,8 @@ class Object(pygame.sprite.Sprite):
             image = pygame.transform.scale(image, (self.width, self.height))
 
             screen.blit(image, self.rect)
-        else:
-            pygame.draw.rect(screen, (255,0,0), self.rect, 1)
+        # else:
+        #     pygame.draw.rect(screen, (255,0,0), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction
