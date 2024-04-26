@@ -34,11 +34,6 @@ pygame.display.set_caption('Project Exodus')
 clock = pygame.time.Clock()
 fps = 30 # 30 frames per second
 
-# objects and items lists
-objects = []
-items = []
-enimies = []
-
 # MAP
 map1 = TileMap(25, 0, 0)
 
@@ -48,14 +43,38 @@ player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) /
 # enemies
 enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 
-# list of enemies
-listenemies = [enemy1]
-listOfMap = [map1]
-
 # OBJECTS
 listofobj = [
         {'name': '7', 'type': 'Stone', 'rect': (50, 200, 50, 50), 'collide': True},
-        {'name': '7', 'type': 'Stone', 'rect': (50, 250, 50, 50), 'collide': True}
+        {'name': '7', 'type': 'Stone', 'rect': (50, 250, 50, 50), 'collide': True},
+
+        # walls and other hidden rect
+        {'name': 'hidden', 'type': 'hidden', 'rect': (0, 25, 250, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (250, 25, 1000, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (225, 25, 25, 300)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (225, 300, 25, 70)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (225, 425, 25, 425)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (0, 500, 250, 25)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (0, 550, 250, 50)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (225, 825, 75, 100)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (375, 825, 50, 100)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (0, 1050, 1600, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (425, 675, 25, 400)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (425, 400, 25, 125)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (425, 150, 25, 150)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (425, 275, 25, 75)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (425, 550, 900, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (425, 500, 900, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (425, 150, 725, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1200, 150, 125, 25)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (625, 150, 25, 75)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (625, 225, 25, 75)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (450, 200, 175, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (625, 325, 25, 175)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1075, 175, 25, 325)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (630, 200, 520, 50)},
+        {'name': 'hidden', 'type': 'hidden2', 'rect': (1300, 175, 25, 325)},
+        {'name': 'hidden', 'type': 'hidden', 'rect': (1200, 200, 100, 50)},
     ]
 
 # create objects for blocks and other objects
@@ -64,6 +83,11 @@ create.create()
 
 # camera
 camera = Camera(player, windowSize)
+
+# LISTS
+listenemies = [enemy1]
+listOfMap = [map1]
+allObjects = create.listofObjects+listenemies+listOfMap
 
 # draw function
 def draw():
@@ -80,11 +104,10 @@ def draw():
     enemy1.follow(player)
 
     # draw player
-    allobj = create.listofObjects+listenemies+listOfMap # list of object fron index 1 - ...N
     player.draw(window, create.listofObjects[1:])
 
     # the camera
-    camera.move(allobj)
+    camera.move(allObjects)
 
     pygame.display.flip()
 

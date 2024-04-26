@@ -17,12 +17,13 @@ class Object(pygame.sprite.Sprite):
         self.image = pygame.Surface((self.width, self.height)) # object surface
 
     def draw(self, screen):
-        image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
-        image = pygame.transform.scale(image, (self.width, self.height))
+        if self.name != 'hidden':
+            image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
 
-        screen.blit(image, self.rect)
-
-        # pygame.draw.rect(screen, (255,255,255), self.rect, 1)
+            screen.blit(image, self.rect)
+        else:
+            pygame.draw.rect(screen, (255,0,0), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction

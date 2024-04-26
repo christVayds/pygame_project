@@ -149,18 +149,28 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
-                if self.left:
-                    if self.rect.y <= obj.rect.y:
-                        self.rect.left = obj.rect.right
-                elif self.right:
-                    if self.rect.y <= obj.rect.y:
-                        self.rect.right = obj.rect.left
+                if obj._type != 'hidden2':
+                    if self.left:
+                        if self.rect.y <= obj.rect.y:
+                            self.rect.left = obj.rect.right
+                    elif self.right:
+                        if self.rect.y <= obj.rect.y:
+                            self.rect.right = obj.rect.left
 
-                elif self.up and obj.front:
-                    if self.rect.top < obj.rect.bottom - 40:
-                        self.rect.top = obj.rect.bottom - 40
-                elif self.down and not(obj.front):
-                    self.rect.bottom = obj.rect.top
+                    elif self.up and obj.front:
+                        if self.rect.top < obj.rect.bottom - 40:
+                            self.rect.top = obj.rect.bottom - 40
+                    elif self.down and not(obj.front):
+                        self.rect.bottom = obj.rect.top
+                else:
+                    if self.left:
+                        self.rect.left = obj.rect.right
+                    elif self.right:
+                        self.rect.right = obj.rect.left
+                    elif self.up:
+                        self.rect.top = obj.rect.bottom
+                    elif self.down:
+                        self.rect.bottom = obj.rect.top
 
 # enemy variant 1
 class Enemy(pygame.sprite.Sprite):
