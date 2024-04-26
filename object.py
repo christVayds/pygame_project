@@ -20,8 +20,13 @@ class Object(pygame.sprite.Sprite):
         self.image = pygame.Surface((self.width, self.height)) # object surface
 
     def draw(self, screen):
-        if self.name != 'hidden':
+        if self._type not in ['hidden', 'hidden2', 'other']:
             image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
+
+            screen.blit(image, self.rect)
+        elif self._type == 'other':
+            image = pygame.image.load(f'characters/objects/{self.name}.png')
             image = pygame.transform.scale(image, (self.width, self.height))
 
             screen.blit(image, self.rect)
