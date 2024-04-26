@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.life = self.defaultLife
 
         # speed
-        self.speed = 5
+        self.speed = 7
         self.walk = 0
 
         # rect and surface
@@ -85,7 +85,7 @@ class Player(pygame.sprite.Sprite):
         self.Facing(screen)
         
         # player rect
-        pygame.draw.rect(screen, (255,255,10), self.rect, 1)
+        # pygame.draw.rect(screen, (255,255,10), self.rect, 1)
 
     
     def Facing(self, screen):
@@ -149,19 +149,30 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
-                if self.left:
-                    if self.rect.y <= obj.rect.y:
+                if obj._type != 'hidden2':
+                    if self.left:
+                        if self.rect.y <= obj.rect.y:
+                            self.rect.left = obj.rect.right
+                    elif self.right:
+                        if self.rect.y <= obj.rect.y:
+                            self.rect.right = obj.rect.left
+
+                    elif self.up and obj.front:
+                        if self.rect.top < obj.rect.bottom - 40:
+                            self.rect.top = obj.rect.bottom - 40
+                    elif self.down and not(obj.front):
+                        self.rect.bottom = obj.rect.top
+                else:
+                    if self.left:
                         self.rect.left = obj.rect.right
-                elif self.right:
-                    if self.rect.y <= obj.rect.y:
+                    elif self.right:
                         self.rect.right = obj.rect.left
+                    elif self.up:
+                        self.rect.top = obj.rect.bottom
+                    elif self.down:
+                        self.rect.bottom = obj.rect.top
 
-                elif self.up and obj.front:
-                    if self.rect.top < obj.rect.bottom - 40:
-                        self.rect.top = obj.rect.bottom - 40
-                elif self.down and not(obj.front):
-                    self.rect.bottom = obj.rect.top
-
+# enemy variant 1
 class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, x, y, width, height, name=''):
@@ -190,7 +201,11 @@ class Enemy(pygame.sprite.Sprite):
         self.loadImages()
         self.flipImage()
 
-    def draw(self, screen):
+    # draw the enemy
+    def draw(self, screen, objects):
+
+        # handle collision
+        self.handleCollision(objects)
         
         if (self.walk + 1) >= 21:
             self.walk = 0
@@ -207,14 +222,16 @@ class Enemy(pygame.sprite.Sprite):
             elif self.right:
                 screen.blit(self.e_right[0], self.rect.x, self.rect.y)
 
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 1)
+        # pygame.draw.rect(screen, (255, 255, 255), self.rect, 1)
 
+    # enemy x and y move directions
     def move_x(self, direction):
         self.rect.x += direction
 
     def move_y(self, direction):
         self.rect.y += direction
 
+    # enemy follow player until player's life is 0
     def follow(self, player):
         if player.life > 0:
             if self.rect.x > player.rect.x + 35:
@@ -244,6 +261,7 @@ class Enemy(pygame.sprite.Sprite):
             else:
                 self.walk = 0
 
+    # load enemies image
     def loadImages(self):
         for character in range(7):
             image = f'characters/goblin/S_Walk_{character+1}.png'
@@ -251,6 +269,41 @@ class Enemy(pygame.sprite.Sprite):
             image = pygame.transform.scale(image, (self.width, self.height))
             self.e_left.append(image)
 
+    # flip the image of enemy
     def flipImage(self):
         for character in self.e_left:
             self.e_right.append(pygame.transform.flip(character, True, False))
+
+    # enemies collision
+    def handleCollision(self, objects):
+        for object in objects:
+            if object._type != 'hidden2':
+                if self.left or self.right:
+                    if self.rect.y > object.rect.y:
+                        object.e_front.append(self)
+                    elif self.rect.y <= object.rect.y:
+                        if self in object.e_front:
+                            object.e_front.remove(self)
+            if pygame.sprite.collide_mask(self, object):
+                if object._type != 'hidden2':
+                    if self.left:
+                        if self.rect.y <= object.rect.y:
+                            self.rect.left = object.rect.right
+                    elif self.right:
+                        if self.rect.y <= object.rect.y:
+                            self.rect.right = object.rect.left
+
+                    elif self.up and self in object.e_front:
+                        if self.rect.top < object.rect.bottom - 40:
+                            self.rect.top = object.rect.bottom - 40
+                    elif self.down and self not in object.e_front:
+                        self.rect.bottom = object.rect.top
+                else:
+                    if self.right:
+                        self.rect.right = object.rect.left
+                    elif self.left:
+                        self.rect.left = object.rect.right
+                    elif self.up:
+                        self.rect.top = object.rect.bottom
+                    elif self.down:
+                        self.rect.bottom = object.rect.top

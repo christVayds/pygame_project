@@ -12,17 +12,26 @@ class Object(pygame.sprite.Sprite):
         # if player is above or bellow the object
         self.front = False
 
+        # enemies in front of abj
+        self.e_front = []
+
         self.rect = pygame.Rect((x, y), (self.width, self.height)) # oject rect
         self.collision = pygame.Rect((x, y), (self.width, self.height)) # object collision rect
         self.image = pygame.Surface((self.width, self.height)) # object surface
 
     def draw(self, screen):
-        image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
-        image = pygame.transform.scale(image, (self.width, self.height))
+        if self._type not in ['hidden', 'hidden2', 'other']:
+            image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
 
-        screen.blit(image, self.rect)
+            screen.blit(image, self.rect)
+        elif self._type == 'other':
+            image = pygame.image.load(f'characters/objects/{self.name}.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
 
-        pygame.draw.rect(screen, (255,255,255), self.rect, 1)
+            screen.blit(image, self.rect)
+        # else:
+        #     pygame.draw.rect(screen, (255,0,0), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction
