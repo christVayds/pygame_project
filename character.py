@@ -28,6 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.right = True
         self.up = False
         self.down = False
+        self.idle = False
 
         # image and animation
         self.c_left = []
@@ -51,6 +52,7 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = False
             self.down = False
+            self.idle = False
 
             self.move_x((self.speed * -1))
 
@@ -60,6 +62,7 @@ class Player(pygame.sprite.Sprite):
             self.right = True
             self.up = False
             self.down = False
+            self.idle = False
 
             self.move_x(self.speed)
 
@@ -69,6 +72,7 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = True
             self.down = False
+            self.idle = False
 
             self.move_y((self.speed * -1))
 
@@ -77,9 +81,11 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = False
             self.down = True
+            self.idle = False
 
             self.move_y(self.speed)
         else: 
+            self.idle = True
             self.walk = 0
 
         self.Facing(screen)
@@ -105,7 +111,7 @@ class Player(pygame.sprite.Sprite):
         elif self.down:
             screen.blit(self.c_down[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
-        else:
+        elif self.idle:
             if self.left:
                 screen.blit(self.c_left[0], (self.rect.x, self.rect.y))
             elif self.right:
@@ -117,7 +123,7 @@ class Player(pygame.sprite.Sprite):
 
         for image in images:
             for count in range(7):
-                img = f'characters/goblin/{image}{count+1}.png'
+                img = f'characters/char1/{image}{count}.png'
                 img = pygame.image.load(img)
                 img = pygame.transform.scale(img, (self.width, self.height))
                 if image == 'D_Walk_':
