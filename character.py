@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self, screen, allObj):
 
         # handle collision
-        self.handleCollision(allObj)
+        self.handleCollision(allObj, screen)
 
         # get key events
         keys = pygame.key.get_pressed()
@@ -146,7 +146,7 @@ class Player(pygame.sprite.Sprite):
     def move_y(self, direction):
         self.rect.y += direction
 
-    def handleCollision(self, objects):
+    def handleCollision(self, objects, screen):
         for obj in objects:
             if self.left or self.right:
                 if self.rect.y > obj.rect.y:
@@ -155,6 +155,16 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
+                if obj._type == 'animated_once':
+                    if obj.stop == False:
+                        obj.animateObj = True
+                        obj.animateOnce(screen)
+                    else:
+                        obj.animatedObj = False
+
+                else:
+                    obj.stop = False
+
                 if obj._type != 'hidden2':
                     if self.left:
                         if self.rect.y <= obj.rect.y:

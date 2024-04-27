@@ -2,12 +2,13 @@ import pygame
 
 class Object(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, width, height, _type = '', name=''):
+    def __init__(self, x, y, width, height, _type = '', name='', animated=False):
         super().__init__()
         self.width = width
         self.height = height
         self._type = _type
         self.name = name
+        self.animated = animated
 
         # if player is above or bellow the object
         self.front = False
@@ -19,8 +20,18 @@ class Object(pygame.sprite.Sprite):
         self.collision = pygame.Rect((x, y), (self.width, self.height)) # object collision rect
         self.image = pygame.Surface((self.width, self.height)) # object surface
 
+        # for animated object
+        self.animateObj = False
+        self.animation = 0
+        self.animation1 = 0 # only for object that animate once
+        self.animatedObjects = [] # load all animated image here
+        if self._type in ['animated', 'animated_once']:
+            self.loadAnimated() # all animated image loaded
+        # for animated once
+        self.stop = False
+
     def draw(self, screen):
-        if self._type not in ['hidden', 'hidden2', 'other']:
+        if self._type not in ['hidden', 'hidden2', 'other', 'animated', 'animated_once']:
             image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
             image = pygame.transform.scale(image, (self.width, self.height))
 
@@ -30,8 +41,19 @@ class Object(pygame.sprite.Sprite):
             image = pygame.transform.scale(image, (self.width, self.height))
 
             screen.blit(image, self.rect)
+        elif self._type == 'animated':
+            self.animate(screen)
+
+        elif self._type == 'animated_once' and self.stop:
+            screen.blit(self.animatedObjects[-1], self.rect)
+
+        elif self._type == 'animated_once' and not(self.animateObj):
+            screen.blit(self.animatedObjects[0], self.rect)
+
         # else:
         #     pygame.draw.rect(screen, (255,0,0), self.rect, 1)
+
+        # pygame.draw.rect(screen, (255,255,255), self.rect, 1)
 
     def move_x(self, direction):
         self.rect.x += direction
@@ -39,18 +61,47 @@ class Object(pygame.sprite.Sprite):
     def move_y(self, direction):
         self.rect.y += direction
 
-# soon
-class animatedObjects(pygame.sprite.Sprite):
+    def animate(self, screen):
+        if(self.animation + 1) >= 63:
+            self.animation = 0
 
-    def __init__(self, x, y, width, height, _type='', name=''):
-        super().__init__()
+        screen.blit(self.animatedObjects[self.animation//9], (self.rect.x, self.rect.y))
+        self.animation+=1
+
+    def animateOnce(self, screen):
+        if(self.animation1) >= 63:
+            self.animation1 = 0
+            self.animateObj = False
+            self.stop = True
+        else:
+            if self.animateObj:
+                screen.blit(self.animatedObjects[self.animation1//9], (self.rect.x, self.rect.y))
+                self.animation1 += 1
+
+    def loadAnimated(self):
+        for i in range(7):
+            image = f'characters/animatedObj/{self.name}/frame_{i}.png'
+            image = pygame.image.load(image)
+            image = pygame.transform.scale(image, (self.width, self.height))
+            self.animatedObjects.append(image)
+
+class Object2(pygame.sprite.Sprite):
+
+    def __init__(self, x, y, width, height, name=''):
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
-        self._type = _type
         self.name = name
 
-        self.rect = pygame.Rect((x, y), (self.width, self.height))
-        self.image = pygame.Surface((self.width, self.height))
+    def draw(self, screen):
+        image = f'characters/objects/{self.name}.png'
+        image = pygame.image.load(image)
+        image = pygame.transform.scale(image, (self.width, self.height))
+        screen.blit(image, self.rect)
 
-        # player facing
-        self.font = False
+    def move_x(self, direction):
+        self.x += direction
+
+    def move_y(self, direction):
+        self.y += direction

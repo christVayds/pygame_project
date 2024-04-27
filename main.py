@@ -46,9 +46,19 @@ enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 # OBJECTS
 listofobj = [
         # objects
-        {'name': 'book_shelf', 'type': 'other', 'rect': (450, 190, 70, 90)},
-        {'name': 'book_shelf', 'type': 'other', 'rect': (520, 190, 70, 90)},
-        {'name': 'monitor_1', 'type': 'other', 'rect': (650, 180, 50, 50)},
+        {'name': 'book_shelf', 'type': 'other', 'rect': (450, 190, 70, 90)}, # bookshelf 1
+        {'name': 'book_shelf', 'type': 'other', 'rect': (520, 190, 70, 90)}, # bookself 2
+        {'name': 'monitor_1', 'type': 'other', 'rect': (650, 180, 50, 50)}, # monitor 1
+        {'name': 'table_1', 'type': 'other', 'rect': (515, 400, 50, 50)}, # table 1
+        {'name': 'table_1', 'type': 'other', 'rect': (1180, 400, 50, 50)}, # table 2
+
+        # animated objects
+        {'name': 'monitor_1', 'type': 'animated', 'rect': (720, 175, 70, 70)},
+        {'name': 'monitor_1', 'type': 'animated', 'rect': (795, 175, 70, 70)},
+        {'name': 'monitor_1', 'type': 'animated', 'rect': (870, 175, 70, 70)},
+
+        # animate once objects
+        {'name': 'door_1', 'type': 'animated_once', 'rect': (1330, -10, 90, 90)},
 
         # walls and other hidden rect
         {'name': 'hidden', 'type': 'hidden', 'rect': (0, 25, 250, 50)},
