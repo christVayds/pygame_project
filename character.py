@@ -35,8 +35,9 @@ class Player(pygame.sprite.Sprite):
         self.c_right = []
         self.c_up = []
         self.c_down = []
+        # load all images of a characters
         self.loadImages()
-        self.flipImage()
+        self.flipImage() # flip image
 
     def draw(self, screen, allObj):
 

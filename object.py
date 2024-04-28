@@ -20,6 +20,10 @@ class Object(pygame.sprite.Sprite):
         self.collision = pygame.Rect((x, y), (self.width, self.height)) # object collision rect
         self.image = pygame.Surface((self.width, self.height)) # object surface
 
+        # non animated object/image
+        self.nonAnimated = ''
+        self.loadNonAnimated() # all all non animated objects
+
         # for animated object
         self.animateObj = False
         self.animation = 0
@@ -32,17 +36,13 @@ class Object(pygame.sprite.Sprite):
 
     def draw(self, screen):
         if self._type not in ['hidden', 'hidden2', 'other', 'animated', 'animated_once']:
-            image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
-            image = pygame.transform.scale(image, (self.width, self.height))
+            screen.blit(self.nonAnimated, self.rect)
 
-            screen.blit(image, self.rect)
         elif self._type == 'other':
-            image = pygame.image.load(f'characters/objects/{self.name}.png')
-            image = pygame.transform.scale(image, (self.width, self.height))
+            screen.blit(self.nonAnimated, self.rect)
 
-            screen.blit(image, self.rect)
         elif self._type == 'animated':
-            self.animate(screen)
+            self.animate(screen) # auto animating if the object is animated(note animated_once)
 
         elif self._type == 'animated_once' and self.stop:
             screen.blit(self.animatedObjects[-1], self.rect)
@@ -78,30 +78,19 @@ class Object(pygame.sprite.Sprite):
                 screen.blit(self.animatedObjects[self.animation1//9], (self.rect.x, self.rect.y))
                 self.animation1 += 1
 
+    # load animated objects here
     def loadAnimated(self):
         for i in range(7):
             image = f'characters/animatedObj/{self.name}/frame_{i}.png'
             image = pygame.image.load(image)
             image = pygame.transform.scale(image, (self.width, self.height))
             self.animatedObjects.append(image)
-
-class Object2(pygame.sprite.Sprite):
-
-    def __init__(self, x, y, width, height, name=''):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.name = name
-
-    def draw(self, screen):
-        image = f'characters/objects/{self.name}.png'
-        image = pygame.image.load(image)
-        image = pygame.transform.scale(image, (self.width, self.height))
-        screen.blit(image, self.rect)
-
-    def move_x(self, direction):
-        self.x += direction
-
-    def move_y(self, direction):
-        self.y += direction
+    
+    # load non animated objects here
+    def loadNonAnimated(self):
+        if self._type not in ['hidden', 'hidden2', 'other', 'animated', 'animated_once']:
+            image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
+            self.nonAnimated = pygame.transform.scale(image, (self.width, self.height))
+        elif self._type == 'other':
+            image = pygame.image.load(f'characters/objects/{self.name}.png')
+            self.nonAnimated = pygame.transform.scale(image, (self.width, self.height))

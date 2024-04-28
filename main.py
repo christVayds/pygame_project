@@ -62,6 +62,9 @@ listOfMap = [map1]
 
 # all objects in map 1
 allObjects = create.listofObjects+listenemies+listOfMap
+# create.listofObjects is a list of all objecst
+# listenemies is a list of all enemies
+# listOfMap is a list of map tiles
 
 # draw function
 def draw():
@@ -100,7 +103,7 @@ def main():
 
         # draw the display
         draw()
-        print(round(clock.get_fps()), 2)
+        # print(round(clock.get_fps()), 2)
 
     # quit program after the loop
     pygame.quit()
