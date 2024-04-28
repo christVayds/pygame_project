@@ -22,6 +22,7 @@ from create import Create
 from camera import Camera
 from lab import TileMap
 from Data.read import Read
+from UI import UI
 
 # initialize pygame
 pygame.init()
@@ -37,6 +38,17 @@ fps = 30 # 30 frames per second
 
 # MAP
 map1 = TileMap(25, 0, 0)
+
+# GUIs
+
+itemsGUI = UI((windowSize['width'] - 350) / 2, (windowSize['height'] - 80), 350, 70)
+
+# pause button
+pauseButton = UI((windowSize['width'] - 60), 10, 50, 50)
+
+# player Icon and health bar
+playerIcon = UI(10, 10, 70, 70)
+healthbar = UI(90, 10, 150, 70)
 
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
@@ -85,6 +97,12 @@ def draw():
 
     # the camera
     camera.move(allObjects)
+
+    # Display GUIs
+    itemsGUI.draw(window)
+    pauseButton.draw(window)
+    playerIcon.draw(window)
+    healthbar.draw(window)
 
     pygame.display.flip()
 
