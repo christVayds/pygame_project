@@ -28,7 +28,6 @@ class Player(pygame.sprite.Sprite):
         self.right = True
         self.up = False
         self.down = False
-        self.idle = False
 
         # image and animation
         self.c_left = []
@@ -53,7 +52,6 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = False
             self.down = False
-            self.idle = False
 
             self.move_x((self.speed * -1))
 
@@ -63,7 +61,6 @@ class Player(pygame.sprite.Sprite):
             self.right = True
             self.up = False
             self.down = False
-            self.idle = False
 
             self.move_x(self.speed)
 
@@ -73,7 +70,6 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = True
             self.down = False
-            self.idle = False
 
             self.move_y((self.speed * -1))
 
@@ -82,11 +78,9 @@ class Player(pygame.sprite.Sprite):
             self.right = False
             self.up = False
             self.down = True
-            self.idle = False
 
             self.move_y(self.speed)
         else: 
-            self.idle = True
             self.walk = 0
 
         self.Facing(screen)
@@ -112,7 +106,7 @@ class Player(pygame.sprite.Sprite):
         elif self.down:
             screen.blit(self.c_down[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
-        elif self.idle:
+        else:
             if self.left:
                 screen.blit(self.c_left[0], (self.rect.x, self.rect.y))
             elif self.right:
@@ -228,16 +222,19 @@ class Enemy(pygame.sprite.Sprite):
             self.walk = 0
 
         if self.left or self.up:
-            screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         elif self.right or self.down:
-            screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         else:
-            if self.left:
-                screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
-            elif self.right:
-                screen.blit(self.e_right[0], self.rect.x, self.rect.y)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                if self.left:
+                    screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
+                elif self.right:
+                    screen.blit(self.e_right[0], self.rect.x, self.rect.y)
 
         # pygame.draw.rect(screen, (255, 255, 255), self.rect, 1)
 

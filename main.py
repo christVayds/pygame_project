@@ -103,7 +103,7 @@ def main():
 
         # draw the display
         draw()
-        # print(round(clock.get_fps()), 2)
+        # print(round(clock.get_fps(), 2))
 
     # quit program after the loop
     pygame.quit()

@@ -36,19 +36,24 @@ class Object(pygame.sprite.Sprite):
 
     def draw(self, screen):
         if self._type not in ['hidden', 'hidden2', 'other', 'animated', 'animated_once']:
-            screen.blit(self.nonAnimated, self.rect)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.nonAnimated, self.rect)
 
         elif self._type == 'other':
-            screen.blit(self.nonAnimated, self.rect)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.nonAnimated, self.rect)
 
         elif self._type == 'animated':
-            self.animate(screen) # auto animating if the object is animated(note animated_once)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                self.animate(screen) # auto animating if the object is animated(note animated_once)
 
         elif self._type == 'animated_once' and self.stop:
-            screen.blit(self.animatedObjects[-1], self.rect)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.animatedObjects[-1], self.rect)
 
         elif self._type == 'animated_once' and not(self.animateObj):
-            screen.blit(self.animatedObjects[0], self.rect)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.animatedObjects[0], self.rect)
 
         # else:
         #     pygame.draw.rect(screen, (255,0,0), self.rect, 1)
