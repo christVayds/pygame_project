@@ -106,6 +106,12 @@ def draw():
 
     pygame.display.flip()
 
+def Opening():
+
+    window.fill((54, 54, 54))
+
+    pygame.display.flip()
+
 # main function
 def main():
     run = True
