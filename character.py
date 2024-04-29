@@ -222,15 +222,15 @@ class Enemy(pygame.sprite.Sprite):
             self.walk = 0
 
         if self.left or self.up:
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         elif self.right or self.down:
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         else:
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 if self.left:
                     screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
                 elif self.right:
