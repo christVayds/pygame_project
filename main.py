@@ -104,7 +104,7 @@ def draw():
     playerIcon.draw(window)
     healthbar.draw(window)
 
-    pygame.display.update()
+    pygame.display.flip()
 
 # opening scene function / credits and loading
 def Opening():
@@ -144,7 +144,7 @@ def main():
 
 # frame drops test
 def chechFPS(frames):
-    if frames not in fpsCollected and frames < 1:
+    if frames not in fpsCollected and frames >= 1:
         fpsCollected.append(frames)
 
 # main program
