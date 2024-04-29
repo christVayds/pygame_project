@@ -65,7 +65,9 @@ class TileMap():
             for i,row in enumerate(self.array):
                 for j,tile in enumerate(row):
                     if tile > 0:
-                        surface.blit(self.images[tile - 1], (self.x + j * self.tilesize, self.y + i * self.tilesize))
+                        # if x position is greater than the negative side of the tile and if x position is less than the size of the width of the screen and y position is greater than the size of the tile and y position is less than the height of the screen then render the image of tile
+                        if (self.x + j * self.tilesize) > -self.tilesize and (self.x + j * self.tilesize) < 700 and (self.y + i * self.tilesize) > -self.tilesize and (self.y + i * self.tilesize) < 500:
+                            surface.blit(self.images[tile - 1], (self.x + j * self.tilesize, self.y + i * self.tilesize))
 
     def move_x(self, direction):
          self.x += direction

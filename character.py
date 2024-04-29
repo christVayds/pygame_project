@@ -34,13 +34,14 @@ class Player(pygame.sprite.Sprite):
         self.c_right = []
         self.c_up = []
         self.c_down = []
+        # load all images of a characters
         self.loadImages()
-        self.flipImage()
+        self.flipImage() # flip image
 
     def draw(self, screen, allObj):
 
         # handle collision
-        self.handleCollision(allObj)
+        self.handleCollision(allObj, screen)
 
         # get key events
         keys = pygame.key.get_pressed()
@@ -117,7 +118,7 @@ class Player(pygame.sprite.Sprite):
 
         for image in images:
             for count in range(7):
-                img = f'characters/goblin/{image}{count+1}.png'
+                img = f'characters/char1/{image}{count}.png'
                 img = pygame.image.load(img)
                 img = pygame.transform.scale(img, (self.width, self.height))
                 if image == 'D_Walk_':
@@ -140,7 +141,7 @@ class Player(pygame.sprite.Sprite):
     def move_y(self, direction):
         self.rect.y += direction
 
-    def handleCollision(self, objects):
+    def handleCollision(self, objects, screen):
         for obj in objects:
             if self.left or self.right:
                 if self.rect.y > obj.rect.y:
@@ -149,6 +150,16 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
+                if obj._type == 'animated_once':
+                    if obj.stop == False:
+                        obj.animateObj = True
+                        obj.animateOnce(screen)
+                    else:
+                        obj.animatedObj = False
+
+                else:
+                    obj.stop = False
+
                 if obj._type != 'hidden2':
                     if self.left:
                         if self.rect.y <= obj.rect.y:
@@ -211,16 +222,19 @@ class Enemy(pygame.sprite.Sprite):
             self.walk = 0
 
         if self.left or self.up:
-            screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.e_left[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         elif self.right or self.down:
-            screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                screen.blit(self.e_right[self.walk//3], (self.rect.x, self.rect.y))
             self.walk += 1
         else:
-            if self.left:
-                screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
-            elif self.right:
-                screen.blit(self.e_right[0], self.rect.x, self.rect.y)
+            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+                if self.left:
+                    screen.blit(self.e_left[0], (self.rect.x, self.rect.x))
+                elif self.right:
+                    screen.blit(self.e_right[0], self.rect.x, self.rect.y)
 
         # pygame.draw.rect(screen, (255, 255, 255), self.rect, 1)
 
