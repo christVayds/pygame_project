@@ -78,7 +78,7 @@ allObjects = create.listofObjects+listenemies+listOfMap
 # listenemies is a list of all enemies
 # listOfMap is a list of map tiles
 
-# draw function
+# draw main game function
 def draw():
     window.fill((54, 54, 54))
 
@@ -104,13 +104,17 @@ def draw():
     playerIcon.draw(window)
     healthbar.draw(window)
 
-    pygame.display.flip()
+    pygame.display.update()
 
+# opening scene function / credits and loading
 def Opening():
 
     window.fill((54, 54, 54))
 
     pygame.display.flip()
+
+# for testing
+fpsCollected = [] # collecting frames per second value
 
 # main function
 def main():
@@ -127,10 +131,21 @@ def main():
 
         # draw the display
         draw()
-        # print(round(clock.get_fps(), 2))
+
+        # for testing
+        chechFPS(round(clock.get_fps(), 2))
 
     # quit program after the loop
+    print(fpsCollected)
+    print('lowest:', min(fpsCollected), '\nHighest:', max(fpsCollected))
     pygame.quit()
+
+# function for testing
+
+# frame drops test
+def chechFPS(frames):
+    if frames not in fpsCollected and frames < 1:
+        fpsCollected.append(frames)
 
 # main program
 if __name__=='__main__':

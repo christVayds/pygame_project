@@ -35,24 +35,27 @@ class Object(pygame.sprite.Sprite):
         self.stop = False
 
     def draw(self, screen):
+        # Optimizing rendering objects - rendering the object when the object is in the display
+        # if x position is greater than the negative side of the object and if x position is less than the size of the width of the screen and y position is greater than the size of the object and y position is less than the height of the screen then render the image of tile
+        
         if self._type not in ['hidden', 'hidden2', 'other', 'animated', 'animated_once']:
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.nonAnimated, self.rect)
 
         elif self._type == 'other':
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.nonAnimated, self.rect)
 
         elif self._type == 'animated':
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 self.animate(screen) # auto animating if the object is animated(note animated_once)
 
         elif self._type == 'animated_once' and self.stop:
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.animatedObjects[-1], self.rect)
 
         elif self._type == 'animated_once' and not(self.animateObj):
-            if self.rect.x > 0 and self.rect.x < 700 and self.rect.y > -20 and self.rect.y < 500:
+            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.animatedObjects[0], self.rect)
 
         # else:
