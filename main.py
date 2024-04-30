@@ -129,8 +129,6 @@ def main():
     run = True
 
     while run:
-        # fps of the game
-        clock.tick(fps)
 
         # check for events
         for event in pygame.event.get():
@@ -146,8 +144,11 @@ def main():
         # for testing
         chechFPS(round(clock.get_fps(), 2))
 
+        # fps of the game
+        clock.tick(fps)
+
     # quit program after the loop
-    print(fpsCollected)
+    print('fps timeline:',fpsCollected)
     print('lowest:', min(fpsCollected), '\nHighest:', max(fpsCollected), '\nLocation:', player.location)
     pygame.quit()
 
