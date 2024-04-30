@@ -29,6 +29,9 @@ class Player(pygame.sprite.Sprite):
         self.up = False
         self.down = False
 
+        # handling location
+        self.location = 'base'
+
         # image and animation
         self.c_left = []
         self.c_right = []
@@ -41,7 +44,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self, screen, allObj):
 
         # handle collision
-        self.handleCollision(allObj, screen)
+        self.handleCollision(allObj)
 
         # get key events
         keys = pygame.key.get_pressed()
@@ -141,7 +144,7 @@ class Player(pygame.sprite.Sprite):
     def move_y(self, direction):
         self.rect.y += direction
 
-    def handleCollision(self, objects, screen):
+    def handleCollision(self, objects):
         for obj in objects:
             if self.left or self.right:
                 if self.rect.y > obj.rect.y:
@@ -150,17 +153,16 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
-                if obj._type == 'animated_once':
-                    if obj.stop == False:
-                        obj.animateObj = True
-                        obj.animateOnce(screen)
-                    else:
-                        obj.animatedObj = False
-
-                else:
-                    obj.stop = False
-
-                if obj._type != 'hidden2':
+                if obj._type == 'hidden2':
+                    if self.left:
+                        self.rect.left = obj.rect.right
+                    elif self.right:
+                        self.rect.right = obj.rect.left
+                    elif self.up:
+                        self.rect.top = obj.rect.bottom
+                    elif self.down:
+                        self.rect.bottom = obj.rect.top
+                elif obj._type in ['other', 'hidden', 'animated', 'animated_once']:
                     if self.left:
                         if self.rect.y <= obj.rect.y:
                             self.rect.left = obj.rect.right
@@ -172,15 +174,6 @@ class Player(pygame.sprite.Sprite):
                         if self.rect.top < obj.rect.bottom - 40:
                             self.rect.top = obj.rect.bottom - 40
                     elif self.down and not(obj.front):
-                        self.rect.bottom = obj.rect.top
-                else:
-                    if self.left:
-                        self.rect.left = obj.rect.right
-                    elif self.right:
-                        self.rect.right = obj.rect.left
-                    elif self.up:
-                        self.rect.top = obj.rect.bottom
-                    elif self.down:
                         self.rect.bottom = obj.rect.top
 
 # enemy variant 1

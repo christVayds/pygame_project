@@ -1,4 +1,5 @@
 from object import Object
+from character import Enemy
 
 class Create:
 
@@ -14,6 +15,13 @@ class Create:
         for obj in self.list_obj:
             object = Object(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name'])
             self.listofObjects.append(object)
+
+    def create2(self):
+        for obj in self.list_obj:
+            if obj['type'] == 'anemy':
+                self.listofObjects.append(Enemy(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name']))
+            else:
+                self.listofObjects.append(Object(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name']))
 
     def draw(self):
         for obj in self.listofObjects:
