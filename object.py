@@ -58,6 +58,7 @@ class Object(pygame.sprite.Sprite):
             if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 screen.blit(self.animatedObjects[0], self.rect)
 
+        # for debuging or testing
         # else:
         #     pygame.draw.rect(screen, (255,0,0), self.rect, 1)
 
