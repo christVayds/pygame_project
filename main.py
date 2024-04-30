@@ -1,9 +1,9 @@
 """
-Game name: The Adventure of Christian
+Game name: Back in Time
 Project: Application Development and Emerging Technology
 Professor: Gary Bato-ey
 
-Frames: 21 fps
+Frames: 30 fps
 walking animation(character and enemy): 7 frames/images
 characters size(character and enemy): 130x80 pixels
 
@@ -20,9 +20,12 @@ from character import *
 from object import *
 from create import Create
 from camera import Camera
-from lab import TileMap
 from Data.read import Read
 from UI import UI
+
+# IMPORT MAPS
+# from Maps.map1 import TileMap as Map1 
+from Maps import baseMap # MAP1 / BASE
 
 # initialize pygame
 pygame.init()
@@ -37,10 +40,9 @@ clock = pygame.time.Clock()
 fps = 30 # 30 frames per second
 
 # MAP
-map1 = TileMap(25, 0, 0)
+base = baseMap.TileMap(25, 0, 0)
 
-# GUIs
-
+# GUIs (not yet draw)
 itemsGUI = UI((windowSize['width'] - 350) / 2, (windowSize['height'] - 80), 350, 70)
 
 # pause button
@@ -59,50 +61,46 @@ enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 # read object data from json file data
 readData = Read('Data/data.json')
 readData.read() # read all data
-readData.strToTuple('Map1') # make all string tuple in Map1 to tuple
+readData.strToTuple('Base') # make all string tuple in Map1 to tuple
 
 # create objects for blocks and other objects
-create = Create(window, player, readData.data['Map1'])
+create = Create(window, player, readData.data['Base'])
 create.create()
 
 # camera
 camera = Camera(player, windowSize)
 
-# LISTS
+# LISTS - BASE
 listenemies = [enemy1]
-listOfMap = [map1]
+listOfMap = [base]
 
-# all objects in map 1
+# LIST of all objects in map 1 / Base
 allObjects = create.listofObjects+listenemies+listOfMap
 # create.listofObjects is a list of all objecst
 # listenemies is a list of all enemies
 # listOfMap is a list of map tiles
 
-# draw main game function
-def draw():
+# draw base map function
+
+def draw_base():
+
     window.fill((54, 54, 54))
 
-    # map
-    map1.drawMap(window)
+    # map for the base map
+    base.drawMap(window)
 
     # draw object
     create.draw()
 
-    # draw enemy
-    enemy1.draw(window, create.listofObjects[1:])
-    enemy1.follow(player)
+    # enemies
+    # enemy1.draw(window, create.listofObjects[1:])
+    # enemy1.follow(player)
 
     # draw player
     player.draw(window, create.listofObjects[1:])
 
-    # the camera
+    # camera
     camera.move(allObjects)
-
-    # Display GUIs
-    itemsGUI.draw(window)
-    pauseButton.draw(window)
-    playerIcon.draw(window)
-    healthbar.draw(window)
 
     pygame.display.flip()
 
@@ -130,7 +128,7 @@ def main():
                 run = False
 
         # draw the display
-        draw()
+        draw_base()
 
         # for testing
         chechFPS(round(clock.get_fps(), 2))
