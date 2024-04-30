@@ -1,10 +1,15 @@
 Game name: Back In Time
+
 Project: Application Development and Emerging Technology
+
 Professor: Gary Bato-ey
 
 Frame per Second: 30fps
+
 Character frames: 7 frames
+
 characters size(character and enemy): 130x80 pixels
+
 Window Size: 700x500 pixels
 
 Developers:
