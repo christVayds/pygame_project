@@ -25,3 +25,7 @@ Typess of Objects:
   3. animated - animated objects
   4. animated_once - animataed objects that only animate once or triggered
   5. other - other objects like book shelf, table etc.
+
+Maps:
+  1. baseMap - The base or the home map, the time machine place in here.
+  2. Map_2 - Enemies like zombies, other items and keys to open the other door is here
