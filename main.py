@@ -26,6 +26,7 @@ from UI import UI
 # IMPORT MAPS
 # from Maps.map1 import TileMap as Map1 
 from Maps import baseMap # MAP1 / BASE
+from Maps import Map_2
 
 # initialize pygame
 pygame.init()
@@ -41,6 +42,7 @@ fps = 30 # 30 frames per second
 
 # MAP
 base = baseMap.TileMap(25, 0, 0)
+map_2 = Map_2.TileMap(25, 0, 0)
 
 # GUIs (not yet draw)
 itemsGUI = UI((windowSize['width'] - 350) / 2, (windowSize['height'] - 80), 350, 70)
@@ -55,7 +57,7 @@ healthbar = UI(90, 10, 150, 70)
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
 
-# enemies
+# enemies for map 2
 enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 
 # read object data from json file data
@@ -63,7 +65,7 @@ readData = Read('Data/data.json')
 readData.read() # read all data
 readData.strToTuple('Base') # make all string tuple in Map1 to tuple
 
-# create objects for blocks and other objects
+# create objects for blocks and other objects - Map 1 / base
 create = Create(window, player, readData.data['Base'])
 create.create()
 
@@ -81,7 +83,6 @@ allObjects = create.listofObjects+listenemies+listOfMap
 # listOfMap is a list of map tiles
 
 # draw base map function
-
 def draw_base():
 
     window.fill((54, 54, 54))
@@ -104,6 +105,15 @@ def draw_base():
 
     pygame.display.flip()
 
+# draw MAP 2 funtion
+def draw_map2():
+    window.fill((54, 54, 54))
+
+    # draw map 2
+    map_2.drawMap(window)
+
+    pygame.display.flip()
+
 # opening scene function / credits and loading
 def Opening():
 
@@ -119,8 +129,6 @@ def main():
     run = True
 
     while run:
-        # fps of the game
-        clock.tick(fps)
 
         # check for events
         for event in pygame.event.get():
@@ -128,14 +136,20 @@ def main():
                 run = False
 
         # draw the display
-        draw_base()
+        if player.location == 'base':
+            draw_base()
+        elif player.location == 'map2':
+            draw_map2()
 
         # for testing
         chechFPS(round(clock.get_fps(), 2))
 
+        # fps of the game
+        clock.tick(fps)
+
     # quit program after the loop
-    print(fpsCollected)
-    print('lowest:', min(fpsCollected), '\nHighest:', max(fpsCollected))
+    print('fps timeline:',fpsCollected)
+    print('lowest:', min(fpsCollected), '\nHighest:', max(fpsCollected), '\nLocation:', player.location)
     pygame.quit()
 
 # function for testing
