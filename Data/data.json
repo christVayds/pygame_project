@@ -11,6 +11,8 @@
         {"name": "monitor_1", "type": "animated", "rect": "(150, 25, 70, 70)"},
         {"name": "monitor_1", "type": "animated", "rect": "(70, 25, 70, 70)"},
 
+        {"name": "naviation", "type": "navigation", "rect": "(700, 225, 50, 75)"},
+
         {"name": "hidden", "type": "hidden2", "rect": "(0, 0, 25, 400)", "comment": "left side"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 0, 25, 175)", "comment": "right side"},
         {"name": "hidden", "type": "hidden2", "rect": "(750, 150, 25, 175)", "comment": "door 2"},
