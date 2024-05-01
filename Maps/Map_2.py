@@ -8,9 +8,9 @@ class TileMap():
         self.x = x
         self.y = y
         self.name = 'map'
-        self.images.append(pygame.transform.scale(pygame.image.load("C:/Users/Admin/OneDrive/Documents/pygame_project/characters/objects/border_1.png").convert(), (self.tilesize, self.tilesize)))
-        self.images.append(pygame.transform.scale(pygame.image.load("C:/Users/Admin/OneDrive/Documents/pygame_project/characters/objects/floor_2.png").convert(), (self.tilesize, self.tilesize)))
-        self.images.append(pygame.transform.scale(pygame.image.load("C:/Users/Admin/OneDrive/Documents/pygame_project/characters/objects/wall_1.png").convert(), (self.tilesize, self.tilesize)))
+        self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/border_1.png").convert(), (self.tilesize, self.tilesize)))
+        self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/floor_2.png").convert(), (self.tilesize, self.tilesize)))
+        self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/wall_1.png").convert(), (self.tilesize, self.tilesize)))
         self.array = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
 [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
