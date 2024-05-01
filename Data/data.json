@@ -11,12 +11,20 @@
         {"name": "monitor_1", "type": "animated", "rect": "(150, 25, 70, 70)"},
         {"name": "monitor_1", "type": "animated", "rect": "(70, 25, 70, 70)"},
 
-        {"name": "naviation", "type": "navigation", "rect": "(700, 225, 50, 75)"},
+        {"name": "map2", "type": "navigation", "rect": "(700, 225, 50, 75)"},
 
         {"name": "hidden", "type": "hidden2", "rect": "(0, 0, 25, 400)", "comment": "left side"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 0, 25, 175)", "comment": "right side"},
         {"name": "hidden", "type": "hidden2", "rect": "(750, 150, 25, 175)", "comment": "door 2"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 300, 75, 25)", "comment": "door 2"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 175, 75, 25)", "comment": "door 2"}
+    ],
+
+    "Map2": [
+        {"name": "book_shelf", "type": "other", "rect": "(450, 30, 70, 90)", "comment": "top side"},
+        {"name": "book_shelf", "type": "other", "rect": "(385, 30, 70, 90)"},
+        {"name": "book_shelf", "type": "other", "rect": "(320, 30, 70, 90)"},
+        {"name": "box_1", "type": "other", "rect": "(540, 60, 60, 55)"},
+        {"name": "box_1", "type": "other", "rect": "(600, 60, 60, 55)"}
     ]
 }

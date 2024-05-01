@@ -153,7 +153,7 @@ class Player(pygame.sprite.Sprite):
                     obj.front = False
 
             if pygame.sprite.collide_mask(self, obj):
-                if obj._type == 'hidden2':
+                if obj._type == 'hidden2': # no y-sorting objects
                     if self.left:
                         self.rect.left = obj.rect.right
                     elif self.right:
@@ -162,7 +162,7 @@ class Player(pygame.sprite.Sprite):
                         self.rect.top = obj.rect.bottom
                     elif self.down:
                         self.rect.bottom = obj.rect.top
-                elif obj._type in ['other', 'hidden', 'animated', 'animated_once']:
+                elif obj._type in ['other', 'hidden', 'animated', 'animated_once']: # with y-sorting objects
                     if self.left:
                         if self.rect.y <= obj.rect.y:
                             self.rect.left = obj.rect.right
@@ -175,6 +175,18 @@ class Player(pygame.sprite.Sprite):
                             self.rect.top = obj.rect.bottom - 40
                     elif self.down and not(obj.front):
                         self.rect.bottom = obj.rect.top
+                elif obj._type == 'navigation':
+                    self.navigate(obj.name)
+        else:
+            pass
+    
+    # handling navigating to other location
+    def navigate(self, location):
+        # locations: Base, Map2[zombies are enemies], Map1[Boss fight ethan], Map3[Boss fight Christian], Map4[Boss fight Aeron with Zombies (void)]
+        
+        if location == 'map2':
+            self.rect.x, self.rect.y = 50, 100
+            self.location = location
 
 # enemy variant 1
 class Enemy(pygame.sprite.Sprite):

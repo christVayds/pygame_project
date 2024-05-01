@@ -64,20 +64,26 @@ enemy1 = Enemy(100, 100, 50, 50, 'goblin')
 readData = Read('Data/data.json')
 readData.read() # read all data
 readData.strToTuple('Base') # make all string tuple in Map1 to tuple
+readData.strToTuple('Map2')
 
 # create objects for blocks and other objects - Map 1 / base
-create = Create(window, player, readData.data['Base'])
-create.create()
+create_base = Create(window, player, readData.data['Base'])
+create_base.create()
+
+# create objects for blocks and other objects - Map 1 / base
+create_map2 = Create(window, player, readData.data['Map2'])
+create_map2.create()
 
 # camera
 camera = Camera(player, windowSize)
 
 # LISTS - BASE
-listenemies = [enemy1]
-listOfMap = [base]
+listenemies = [enemy1] # only for map2 and map3(void)
 
 # LIST of all objects in map 1 / Base
-allObjects = create.listofObjects+listenemies+listOfMap
+allObjects1 = create_base.listofObjects+[base]
+allObjects2 = create_map2.listofObjects+[map_2]+listenemies
+
 # create.listofObjects is a list of all objecst
 # listenemies is a list of all enemies
 # listOfMap is a list of map tiles
@@ -91,17 +97,13 @@ def draw_base():
     base.drawMap(window)
 
     # draw object
-    create.draw()
-
-    # enemies
-    # enemy1.draw(window, create.listofObjects[1:])
-    # enemy1.follow(player)
+    create_base.draw()
 
     # draw player
-    player.draw(window, create.listofObjects[1:])
+    player.draw(window, create_base.listofObjects[1:])
 
     # camera
-    camera.move(allObjects)
+    camera.move(allObjects1)
 
     pygame.display.flip()
 
@@ -111,6 +113,19 @@ def draw_map2():
 
     # draw map 2
     map_2.drawMap(window)
+
+    # draw objects
+    create_map2.draw()
+
+    # enemies
+    # enemy1.draw(window, create.listofObjects[1:])
+    # enemy1.follow(player)
+
+    # draw player
+    player.draw(window, create_map2.listofObjects[1:])
+
+    # camera for map 2
+    camera.move(allObjects2)
 
     pygame.display.flip()
 
