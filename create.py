@@ -11,6 +11,7 @@ class Create:
 
         # retun this list
         self.listofObjects = [player]
+        self.listEnemies = []
 
     def create(self):
         for obj in self.list_obj:
@@ -18,15 +19,19 @@ class Create:
             if obj['name'] in ['box_1']:
                 object.loadChestBox(obj['items'])
             self.listofObjects.append(object)
-
-    def create2(self):
-        for obj in self.list_obj:
-            if obj['type'] == 'anemy':
-                self.listofObjects.append(Enemy(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name']))
-            else:
-                self.listofObjects.append(Object(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name']))
-
+                    
     def draw(self):
         for obj in self.listofObjects:
             if obj != self.listofObjects[0]:
                 obj.draw(self.screen)
+
+    # for enemies
+    def create_enemies(self):
+        for enemy in self.list_obj:
+            enmy = Enemy(enemy['rect'][0], enemy['rect'][1], enemy['rect'][2], enemy['rect'][3], enemy['name'])
+            self.listEnemies.append(enmy)
+
+    def draw_enemy(self, objects):
+        for enemy in self.listEnemies:
+            enemy.draw(self.screen, objects)
+            enemy.follow(self.player)

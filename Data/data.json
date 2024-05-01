@@ -26,5 +26,9 @@
         {"name": "book_shelf", "type": "other", "rect": "(320, 30, 70, 90)"},
         {"name": "box_1", "type": "other", "rect": "(540, 60, 60, 55)", "items": ["icon14_01"]},
         {"name": "box_1", "type": "other", "rect": "(600, 60, 60, 55)", "items": ["icon14_01"]}
+    ],
+
+    "Enemies_m2": [
+        {"name": "goblin", "rect": "(200, 200, 50, 50)", "comment": "enemies for map 2"}
     ]
 }

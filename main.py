@@ -22,6 +22,7 @@ from create import Create
 from camera import Camera
 from Data.read import Read
 from UI import UI
+from loading import Loading
 
 # IMPORT MAPS
 # from Maps.map1 import TileMap as Map1 
@@ -40,6 +41,13 @@ pygame.display.set_caption('Project Exodus')
 clock = pygame.time.Clock()
 fps = 30 # 30 frames per second
 
+# Program flow
+flow = ['intro', 'main-menu', 'in-game', 'outro']
+current = flow[0]
+
+# loading and checking resources
+load = Loading((windowSize['width'] - 500) / 2, (windowSize['height'] - 200), 500, 15)
+
 # MAP
 base = baseMap.TileMap(25, 0, 0)
 map_2 = Map_2.TileMap(25, 0, 0)
@@ -57,14 +65,14 @@ healthbar = UI(90, 10, 150, 70)
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
 
-# enemies for map 2
-enemy1 = Enemy(100, 100, 50, 50, 'goblin')
-
 # read object data from json file data
 readData = Read('Data/data.json')
 readData.read() # read all data
 readData.strToTuple('Base') # make all string tuple in Map1 to tuple
 readData.strToTuple('Map2')
+readData.strToTuple('Enemies_m2')
+
+# CREATIONS
 
 # create objects for blocks and other objects - Map 1 / base
 create_base = Create(window, player, readData.data['Base'])
@@ -74,15 +82,16 @@ create_base.create()
 create_map2 = Create(window, player, readData.data['Map2'])
 create_map2.create()
 
+# enemies for map 2
+enemies_map2 = Create(window, player, readData.data['Enemies_m2'])
+enemies_map2.create_enemies()
+
 # camera
 camera = Camera(player, windowSize)
 
-# LISTS - BASE
-listenemies = [enemy1] # only for map2 and map3(void)
-
 # LIST of all objects in map 1 / Base
 allObjects1 = create_base.listofObjects+[base]
-allObjects2 = create_map2.listofObjects+[map_2]+listenemies
+allObjects2 = create_map2.listofObjects+[map_2]+enemies_map2.listEnemies
 
 # create.listofObjects is a list of all objecst
 # listenemies is a list of all enemies
@@ -117,9 +126,8 @@ def draw_map2():
     # draw objects
     create_map2.draw()
 
-    # enemies / uncomment later
-    # enemy1.draw(window, create.listofObjects[1:])
-    # enemy1.follow(player)
+    # enemies
+    enemies_map2.draw_enemy(create_map2.listofObjects[1:])
 
     # draw player
     player.draw(window, create_map2.listofObjects[1:])
@@ -133,6 +141,9 @@ def draw_map2():
 def Opening():
 
     window.fill((54, 54, 54))
+
+    load.draw(window)
+    load.checkResources()
 
     pygame.display.flip()
 
@@ -151,10 +162,16 @@ def main():
                 run = False
 
         # draw the display
-        if player.location == 'base':
-            draw_base()
-        elif player.location == 'map2':
-            draw_map2()
+        # intro
+        if current == flow[0]:
+            Opening()
+        # in-game
+        elif current == flow[2]:
+        # draw the display
+            if player.location == 'base':
+                draw_base()
+            elif player.location == 'map2':
+                draw_map2()
 
         # for testing
         chechFPS(round(clock.get_fps(), 2))

@@ -1,7 +1,7 @@
 import pygame
 import random
 
-import pygame.locals
+import pygame.locals # sino naglagay nyan? hahah
 
 class Player(pygame.sprite.Sprite):
 
