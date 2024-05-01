@@ -29,9 +29,10 @@ class Loading:
             for row in resourcesData:
                 self.resources.append(row)
         
-    def checkResources(self):
+    def checkResources(self, player):
         for path in self.resources:
             if self.loaded < self.rect.width:
-                if os.path.exists(f'{path[1]}/{path[0]}'):
-                    print(f'{path[1]}/{path[0]}')
+                if os.path.exists(f'{path[1]}/{path[0]}'):  
                     self.loaded += self.count
+            else:
+                player.location = 'base' 

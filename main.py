@@ -139,11 +139,13 @@ def draw_map2():
 
 # opening scene function / credits and loading
 def Opening():
+    global current
 
     window.fill((54, 54, 54))
 
     load.draw(window)
-    load.checkResources()
+    current = flow[2]
+    load.checkResources(player)
 
     pygame.display.flip()
 
