@@ -117,7 +117,7 @@ def draw_map2():
     # draw objects
     create_map2.draw()
 
-    # enemies
+    # enemies / uncomment later
     # enemy1.draw(window, create.listofObjects[1:])
     # enemy1.follow(player)
 
