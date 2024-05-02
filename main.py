@@ -27,7 +27,7 @@ from timer import Timer
 
 # IMPORT MAPS
 # from Maps.map1 import TileMap as Map1 
-from Maps import baseMap # MAP1 / BASE
+from Maps import baseMap2 # MAP1 / BASE
 from Maps import Map_2
 
 # initialize pygame
@@ -53,7 +53,7 @@ current = flow[0]
 load = Loading((windowSize['width'] - 500) / 2, (windowSize['height'] - 200), 500, 15)
 
 # MAP
-base = baseMap.TileMap(25, 0, 0)
+base = baseMap2.TileMap(25, 0, 0)
 map_2 = Map_2.TileMap(25, 0, 0)
 
 # GUIs (not yet draw)
