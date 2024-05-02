@@ -1,7 +1,7 @@
 import pygame
 import random
 
-import pygame.locals
+import pygame.locals # sino naglagay nyan? hahah
 
 class Player(pygame.sprite.Sprite):
 
@@ -40,6 +40,9 @@ class Player(pygame.sprite.Sprite):
         # load all images of a characters
         self.loadImages()
         self.flipImage() # flip image
+
+        # inventories / items list
+        self.inventories = []
 
     def draw(self, screen, allObj):
 
@@ -146,14 +149,17 @@ class Player(pygame.sprite.Sprite):
 
     def handleCollision(self, objects):
         for obj in objects:
+
+            # handle facing of the player
             if self.left or self.right:
                 if self.rect.y > obj.rect.y:
                     obj.front = True
                 elif self.rect.y <= obj.rect.y:
                     obj.front = False
 
+            # if the player collide with the objects
             if pygame.sprite.collide_mask(self, obj):
-                if obj._type == 'hidden2':
+                if obj._type == 'hidden2': # no y-sorting objects
                     if self.left:
                         self.rect.left = obj.rect.right
                     elif self.right:
@@ -162,7 +168,12 @@ class Player(pygame.sprite.Sprite):
                         self.rect.top = obj.rect.bottom
                     elif self.down:
                         self.rect.bottom = obj.rect.top
-                elif obj._type in ['other', 'hidden', 'animated', 'animated_once']:
+                elif obj._type in ['other', 'hidden', 'animated', 'animated_once']: # with y-sorting objects
+                    # check if item is chestbox
+                    if obj.name in ['box_1']:
+                        self.pick(obj) # pick the item with space bar
+
+                    # handle facing and collision for object - with y-sorting
                     if self.left:
                         if self.rect.y <= obj.rect.y:
                             self.rect.left = obj.rect.right
@@ -175,6 +186,41 @@ class Player(pygame.sprite.Sprite):
                             self.rect.top = obj.rect.bottom - 40
                     elif self.down and not(obj.front):
                         self.rect.bottom = obj.rect.top
+
+                # example door or the time machine
+                elif obj._type == 'navigation':
+                    self.navigate(obj.name)
+    
+    # handling navigating to other location
+    def navigate(self, location):
+        # locations: Base, Map2[zombies are enemies], Map1[Boss fight ethan], Map3[Boss fight Christian], Map4[Boss fight Aeron with Zombies (void)]
+        
+        # press key to open door
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_SPACE]:
+            if location == 'map2':
+                self.rect.x, self.rect.y = 50, 100
+                self.location = location
+
+    # for picking items and opening a chestboxes
+    def pick(self, obj):
+        # click space bar to pick the object or open the object
+
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_SPACE]:
+            for item in obj.loaded:
+                self.inventories.append(item)
+                print(f'you get {obj.name}')
+                obj.loaded = []
+
+            # print(self.inventories, len(self.inventories))
+
+    # animate the fight
+    def handleFight(self, enemies):
+        # use space bar to fight
+        pass
 
 # enemy variant 1
 class Enemy(pygame.sprite.Sprite):

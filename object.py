@@ -1,4 +1,5 @@
 import pygame
+import pygame.locals
 
 class Object(pygame.sprite.Sprite):
 
@@ -25,14 +26,13 @@ class Object(pygame.sprite.Sprite):
         self.loadNonAnimated() # all all non animated objects
 
         # for animated object
-        self.animateObj = False
         self.animation = 0
-        self.animation1 = 0 # only for object that animate once
         self.animatedObjects = [] # load all animated image here
         if self._type in ['animated', 'animated_once']:
             self.loadAnimated() # all animated image loaded
-        # for animated once
-        self.stop = False
+
+        # for chestboxes
+        self.loaded = []
 
     def draw(self, screen):
         # Optimizing rendering objects - rendering the object when the object is in the display
@@ -49,14 +49,6 @@ class Object(pygame.sprite.Sprite):
         elif self._type == 'animated':
             if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
                 self.animate(screen) # auto animating if the object is animated(note animated_once)
-
-        elif self._type == 'animated_once' and self.stop:
-            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
-                screen.blit(self.animatedObjects[-1], self.rect)
-
-        elif self._type == 'animated_once' and not(self.animateObj):
-            if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
-                screen.blit(self.animatedObjects[0], self.rect)
 
         # for debuging or testing
         else:
@@ -75,17 +67,7 @@ class Object(pygame.sprite.Sprite):
             self.animation = 0
 
         screen.blit(self.animatedObjects[self.animation//9], (self.rect.x, self.rect.y))
-        self.animation+=1
-
-    def animateOnce(self, screen):
-        if(self.animation1) >= 63:
-            self.animation1 = 0
-            self.animateObj = False
-            self.stop = True
-        else:
-            if self.animateObj:
-                screen.blit(self.animatedObjects[self.animation1//9], (self.rect.x, self.rect.y))
-                self.animation1 += 1
+        self.animation += 1
 
     # load animated objects here
     def loadAnimated(self):
@@ -103,3 +85,10 @@ class Object(pygame.sprite.Sprite):
         elif self._type == 'other':
             image = pygame.image.load(f'characters/objects/{self.name}.png')
             self.nonAnimated = pygame.transform.scale(image, (self.width, self.height))
+
+    # for chestbox
+    def loadChestBox(self, items):
+        for item in items:
+            image = pygame.image.load(f'characters/icons/{item}.png')
+            image = pygame.transform.scale(image, (50, 50))
+            self.loaded.append({'image': image, 'name': item})
