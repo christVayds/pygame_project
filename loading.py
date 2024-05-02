@@ -18,6 +18,8 @@ class Loading:
 
         self.count = self.width / len(self.resources)
 
+        self.check = 30
+
     def draw(self, screen):
         pygame.draw.rect(screen, (255,255,255), self.rect_max)
         pygame.draw.rect(screen, (121, 168, 242), (self.rect.x, self.rect.y, self.loaded, self.height))
@@ -29,10 +31,13 @@ class Loading:
             for row in resourcesData:
                 self.resources.append(row)
         
-    def checkResources(self, player):
+    def checkResources(self):
         for path in self.resources:
             if self.loaded < self.rect.width:
-                if os.path.exists(f'{path[1]}/{path[0]}'):  
-                    self.loaded += self.count
+                if self.check <= 0:
+                    if os.path.exists(f'{path[1]}/{path[0]}'):  
+                        self.loaded += self.count
+                        self.check = 30
+                self.check-=1
             else:
-                player.location = 'base' 
+                return True
