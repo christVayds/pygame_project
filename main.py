@@ -57,14 +57,16 @@ base = baseMap.TileMap(25, 0, 0)
 map_2 = Map_2.TileMap(25, 0, 0)
 
 # GUIs (not yet draw)
-itemsGUI = UI((windowSize['width'] - 350) / 2, (windowSize['height'] - 80), 350, 70)
+itemsGUI = UI((windowSize['width'] - 250) / 2, (windowSize['height'] - 70), 250, 68, 'itembar_1')
 
 # pause button
-pauseButton = UI((windowSize['width'] - 60), 10, 50, 50)
+pauseButton = UI((windowSize['width'] - 60), 10, 40, 40, 'pause_btn')
 
 # player Icon and health bar
-playerIcon = UI(10, 10, 70, 70)
-healthbar = UI(90, 10, 150, 70)
+playerIcon = UI(10, 10, 80, 80, 'user_icon')
+# healthbar = UI(90, 10, 150, 70, '') # uncomment this later
+
+listGUIs = [itemsGUI, pauseButton, playerIcon] # healthbar - add this later
 
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
@@ -121,6 +123,9 @@ def draw_base():
     # camera
     camera.move(allObjects1)
 
+    for guis in listGUIs:
+        guis.draw(window)
+
     pygame.display.flip()
 
 # draw MAP 2 funtion
@@ -134,13 +139,16 @@ def draw_map2():
     create_map2.draw()
 
     # enemies
-    enemies_map2.draw_enemy(create_map2.listofObjects[1:])
+    # enemies_map2.draw_enemy(create_map2.listofObjects[1:])
 
     # draw player
     player.draw(window, create_map2.listofObjects[1:])
 
     # camera for map 2
     camera.move(allObjects2)
+
+    for guis in listGUIs:
+        guis.draw(window)
 
     pygame.display.flip()
 

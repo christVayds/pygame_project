@@ -7,6 +7,8 @@
         {"name": "box_1", "type": "other", "rect": "(300, 60, 60, 55)", "items": ["icon14_01"]},
         {"name": "box_1", "type": "other", "rect": "(240, 60, 60, 55)", "items": ["icon14_01"]},
         {"name": "table_1", "type": "other", "rect": "(600, 150, 60, 60)"},
+        {"name": "book_1", "type": "other", "rect": "(615, 150, 30, 30)"},
+        {"name": "crafting_table", "type": "other", "rect": "(25, 275, 64, 128)"},
 
         {"name": "monitor_1", "type": "animated", "rect": "(150, 25, 70, 70)"},
         {"name": "monitor_1", "type": "animated", "rect": "(70, 25, 70, 70)"},
@@ -17,15 +19,24 @@
         {"name": "hidden", "type": "hidden2", "rect": "(675, 0, 25, 175)", "comment": "right side"},
         {"name": "hidden", "type": "hidden2", "rect": "(750, 150, 25, 175)", "comment": "door 2"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 300, 75, 25)", "comment": "door 2"},
-        {"name": "hidden", "type": "hidden2", "rect": "(675, 175, 75, 25)", "comment": "door 2"}
+        {"name": "hidden", "type": "hidden2", "rect": "(675, 175, 75, 25)", "comment": "door 2"},
+        {"name": "crafting_table", "type": "hidden2", "rect": "(25, 275, 64, 128)"}
     ],
 
     "Map2": [
-        {"name": "book_shelf", "type": "other", "rect": "(450, 30, 70, 90)", "comment": "top side"},
-        {"name": "book_shelf", "type": "other", "rect": "(385, 30, 70, 90)"},
-        {"name": "book_shelf", "type": "other", "rect": "(320, 30, 70, 90)"},
-        {"name": "box_1", "type": "other", "rect": "(540, 60, 60, 55)", "items": ["icon14_01"]},
-        {"name": "box_1", "type": "other", "rect": "(600, 60, 60, 55)", "items": ["icon14_01"]}
+        {"name": "shelf_1", "type": "other", "rect": "(350, 30, 75, 75)"},
+        {"name": "shelf_1", "type": "other", "rect": "(440, 30, 75, 75)"},
+        {"name": "shelf_1", "type": "other", "rect": "(530, 30, 75, 75)"},
+        {"name": "shelf_1", "type": "other", "rect": "(620, 30, 75, 75)"},
+        {"name": "drawer_1", "type": "other", "rect": "(250, 25, 70, 70)"},
+        {"name": "drawer_1", "type": "other", "rect": "(180, 25, 70, 70)"},
+        {"name": "drawer_1", "type": "other", "rect": "(110, 25, 70, 70)"},
+        {"name": "drawer_1", "type": "other", "rect": "(40, 25, 70, 70)"},
+        {"name": "painting_1", "type": "other", "rect": "(400, 225, 50, 50)"},
+        {"name": "painting_2", "type": "other", "rect": "(470, 225, 50, 50)"},
+        {"name": "painting_3", "type": "other", "rect": "(540, 225, 50, 50)"},
+
+        {"name": "machine_1", "type": "animated", "rect": "(610, 200, 84, 120)", "comment": "animated"}
     ],
 
     "Enemies_m2": [
