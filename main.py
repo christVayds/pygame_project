@@ -24,6 +24,7 @@ from camera import Camera
 from Data.read import Read
 from UI import UI
 from loading import Loading
+from timer import Timer
 
 # IMPORT MAPS
 # from Maps.map1 import TileMap as Map1 
@@ -36,11 +37,14 @@ pygame.init()
 # screen
 windowSize = {'width': 700, 'height': 500} # size of the display
 window = pygame.display.set_mode((windowSize['width'], windowSize['height']))
-pygame.display.set_caption('Project Exodus')
+pygame.display.set_caption('End Of Time')
 
 # clock and FPS - frame per second
 clock = pygame.time.Clock()
 fps = 30 # 30 frames per second
+
+# TImer
+timer = Timer(fps)
 
 # Program flow
 flow = ['intro', 'main-menu', 'in-game', 'outro']
@@ -74,6 +78,9 @@ readData.strToTuple('Map2')
 readData.strToTuple('Enemies_m2')
 
 # CREATIONS
+
+# for loading screen / intro
+title = Object((windowSize['width'] - 300) / 2, (windowSize['height'] - 400) / 2, 300, 300, 'animated', 'title_1')
 
 # create objects for blocks and other objects - Map 1 / base
 create_base = Create(window, player, readData.data['Base'])
@@ -144,9 +151,17 @@ def Opening():
 
     window.fill((54, 54, 54))
 
+    # draw animated title
+    title.draw(window)
+
+    # slow down the loading animation
     load.draw(window)
-    current = flow[2]
-    load.checkResources(player)
+    if timer.coolDown(5):
+        check = load.checkResources()
+        if check:
+            if timer.coolDown(5):
+                player.location = 'base'
+                current = flow[2]
 
     pygame.display.flip()
 
