@@ -36,7 +36,9 @@
         {"name": "painting_2", "type": "other", "rect": "(470, 225, 50, 50)"},
         {"name": "painting_3", "type": "other", "rect": "(540, 225, 50, 50)"},
 
-        {"name": "machine_1", "type": "animated", "rect": "(610, 200, 84, 120)", "comment": "animated"}
+        {"name": "machine_1", "type": "animated", "rect": "(610, 200, 84, 120)", "comment": "animated"},
+
+        {"name": "base", "type": "navigation", "rect": "(25, 100, 50, 80)"}
     ],
 
     "Enemies_m2": [

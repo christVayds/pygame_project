@@ -31,6 +31,7 @@ class Player(pygame.sprite.Sprite):
 
         # handling location
         self.location = 'base'
+        self.wait = 0
 
         # image and animation
         self.c_left = []
@@ -189,19 +190,30 @@ class Player(pygame.sprite.Sprite):
 
                 # example door or the time machine
                 elif obj._type == 'navigation':
-                    self.navigate(obj.name)
+                    # self.navigate(obj.name) - temporary
+                    self.navigate(obj)
+        
+        self.wait -= 1
     
     # handling navigating to other location
-    def navigate(self, location):
+    def navigate(self, obj):
         # locations: Base, Map2[zombies are enemies], Map1[Boss fight ethan], Map3[Boss fight Christian], Map4[Boss fight Aeron with Zombies (void)]
         
-        # press key to open door
+        # press spcae bar to open door
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_SPACE]:
-            if location == 'map2':
-                self.rect.x, self.rect.y = 50, 100
-                self.location = location
+        if keys[pygame.K_SPACE]: # fix this shit
+            if self.wait <= 0:
+                self.wait = 100
+                if obj.name == 'base':
+                    self.rect.x, self.rect.y = obj.rect.x-obj.width, obj.rect.y
+                    self.location = obj.name
+                elif obj.name == 'map2':
+                    self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
+                    self.location = obj.name
+                elif obj.name == 'map3':
+                    self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
+                    self.location = obj.name
 
     # for picking items and opening a chestboxes
     def pick(self, obj):
