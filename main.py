@@ -29,6 +29,7 @@ from timer import Timer
 # from Maps.map1 import TileMap as Map1 
 from Maps import baseMap # MAP1 / BASE
 from Maps import Map_2
+from Maps import Map_3
 
 # initialize pygame
 pygame.init()
@@ -55,16 +56,19 @@ load = Loading((windowSize['width'] - 500) / 2, (windowSize['height'] - 200), 50
 # MAP
 base = baseMap.TileMap(25, 0, 0)
 map_2 = Map_2.TileMap(25, 0, 0)
+map_3 = Map_3.TileMap(25, 0, 0)
 
 # GUIs (not yet draw)
-itemsGUI = UI((windowSize['width'] - 350) / 2, (windowSize['height'] - 80), 350, 70)
+itemsGUI = UI((windowSize['width'] - 260) / 2, (windowSize['height'] - 70), 260, 60, 'itembar_4')
 
 # pause button
-pauseButton = UI((windowSize['width'] - 60), 10, 50, 50)
+pauseButton = UI((windowSize['width'] - 60), 10, 40, 40, 'pause_btn')
 
 # player Icon and health bar
-playerIcon = UI(10, 10, 70, 70)
-healthbar = UI(90, 10, 150, 70)
+playerIcon = UI(10, 10, 90, 90, 'player_frame2')
+# healthbar = UI(100, 10, 128, 32, 'life_bar4') # uncomment this later
+
+listGUIs = [itemsGUI, pauseButton, playerIcon] # healthbar
 
 # PLAYER
 player = Player(((windowSize['width'] - 50) / 2), ((windowSize['height'] - 50) / 2), 50, 50)
@@ -79,7 +83,7 @@ readData.strToTuple('Enemies_m2')
 # CREATIONS
 
 # for loading screen / intro
-title = Object((windowSize['width'] - 300) / 2, (windowSize['height'] - 400) / 2, 300, 300, 'animated', 'title_1')
+title = [Object((windowSize['width'] - 200) / 2, (windowSize['height'] - 350) / 2, 200, 200, 'animated', 'title_2')]
 
 # create objects for blocks and other objects - Map 1 / base
 create_base = Create(window, player, readData.data['Base'])
@@ -121,6 +125,9 @@ def draw_base():
     # camera
     camera.move(allObjects1)
 
+    for guis in listGUIs:
+        guis.draw(window)
+
     pygame.display.flip()
 
 # draw MAP 2 funtion
@@ -134,7 +141,7 @@ def draw_map2():
     create_map2.draw()
 
     # enemies
-    enemies_map2.draw_enemy(create_map2.listofObjects[1:])
+    # enemies_map2.draw_enemy(create_map2.listofObjects[1:])
 
     # draw player
     player.draw(window, create_map2.listofObjects[1:])
@@ -142,16 +149,33 @@ def draw_map2():
     # camera for map 2
     camera.move(allObjects2)
 
+    for guis in listGUIs:
+        guis.draw(window)
+
+    pygame.display.flip()
+
+def draw_map3():
+    window.fill((54, 54, 54))
+
+    map_3.drawMap(window)
+
+    player.draw(window, [])
+
+    camera.move([player,map_3])
+
+    for gui in listGUIs:
+        gui.draw(window)
+
     pygame.display.flip()
 
 # opening scene function / credits and loading
 def Opening():
-    global current
+    global current, title
 
     window.fill((54, 54, 54))
 
     # draw animated title
-    title.draw(window)
+    title[0].draw(window)
 
     # slow down the loading animation
     load.draw(window)
@@ -161,6 +185,7 @@ def Opening():
             if timer.coolDown(5):
                 player.location = 'base'
                 current = flow[2]
+                del title # remove or delete this loaded image
 
     pygame.display.flip()
 
@@ -189,6 +214,8 @@ def main():
                 draw_base()
             elif player.location == 'map2':
                 draw_map2()
+            elif player.location == 'map3': # not yet
+                draw_map3()
 
         # for testing
         chechFPS(round(clock.get_fps(), 2))
