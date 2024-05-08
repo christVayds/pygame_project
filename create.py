@@ -1,6 +1,5 @@
 from object import Object
 from character import Enemy
-import ast
 
 class Create:
 
@@ -13,12 +12,20 @@ class Create:
         self.listofObjects = [player]
         self.listEnemies = []
 
+        # map object
+        self.mapObject = None
+
     def create(self):
         for obj in self.list_obj:
             object = Object(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name'])
             if obj['name'] in ['box_1']:
                 object.loadChestBox(obj['items'])
+            if obj['type'] == 'navigation':
+                self.mapObject = object
             self.listofObjects.append(object)
+
+    def reccreate(self):
+        pass
                     
     def draw(self):
         for obj in self.listofObjects:

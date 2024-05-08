@@ -108,10 +108,15 @@ allObjects2 = create_map2.listofObjects+[map_2]+enemies_map2.listEnemies
 # listenemies is a list of all enemies
 # listOfMap is a list of map tiles
 
+player.MapObjects = [create_base.mapObject, create_map2.mapObject]
+
 # draw base map function
 def draw_base():
 
     window.fill((54, 54, 54))
+
+    # camera
+    camera.move(allObjects1)
 
     # map for the base map
     base.drawMap(window)
@@ -121,9 +126,7 @@ def draw_base():
 
     # draw player
     player.draw(window, create_base.listofObjects[1:])
-
-    # camera
-    camera.move(allObjects1)
+    player.navigate()
 
     for guis in listGUIs:
         guis.draw(window)
@@ -134,6 +137,9 @@ def draw_base():
 def draw_map2():
     window.fill((54, 54, 54))
 
+    # camera for map 2
+    camera.move(allObjects2)
+
     # draw map 2
     map_2.drawMap(window)
 
@@ -141,13 +147,11 @@ def draw_map2():
     create_map2.draw()
 
     # enemies
-    # enemies_map2.draw_enemy(create_map2.listofObjects[1:])
+    # enemies_map2.draw_enemy(create_map2.listofObjects[1:]) # uncomment later
 
     # draw player
     player.draw(window, create_map2.listofObjects[1:])
-
-    # camera for map 2
-    camera.move(allObjects2)
+    player.navigate()
 
     for guis in listGUIs:
         guis.draw(window)
@@ -198,6 +202,9 @@ def main():
 
     while run:
 
+        # fps of the game
+        clock.tick(fps)
+
         # check for events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -219,9 +226,6 @@ def main():
 
         # for testing
         chechFPS(round(clock.get_fps(), 2))
-
-        # fps of the game
-        clock.tick(fps)
 
     # quit program after the loop
     print('fps timeline:',fpsCollected)

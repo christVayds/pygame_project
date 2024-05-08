@@ -31,7 +31,6 @@ class Player(pygame.sprite.Sprite):
 
         # handling location
         self.location = 'base'
-        self.wait = 0
 
         # image and animation
         self.c_left = []
@@ -45,6 +44,10 @@ class Player(pygame.sprite.Sprite):
         # inventories / items list
         self.inventories = []
 
+        # map objects
+        self.nav = False
+        self.MapObjects = []
+
     def draw(self, screen, allObj):
 
         # handle collision
@@ -55,6 +58,7 @@ class Player(pygame.sprite.Sprite):
 
         # left
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            # print('player.rect.x',self.rect.x)
             self.left = True
             self.right = False
             self.up = False
@@ -64,6 +68,7 @@ class Player(pygame.sprite.Sprite):
 
         # right
         elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            # print('player.rect.x',self.rect.x)
             self.left = False
             self.right = True
             self.up = False
@@ -190,30 +195,40 @@ class Player(pygame.sprite.Sprite):
 
                 # example door or the time machine
                 elif obj._type == 'navigation':
-                    # self.navigate(obj.name) - temporary
-                    self.navigate(obj)
-        
-        self.wait -= 1
+                    self.checkLocation(obj)
     
     # handling navigating to other location
-    def navigate(self, obj):
+    def checkLocation(self, obj):
         # locations: Base, Map2[zombies are enemies], Map1[Boss fight ethan], Map3[Boss fight Christian], Map4[Boss fight Aeron with Zombies (void)]
         
         # press spcae bar to open door
-        keys = pygame.key.get_pressed()
+        keys = pygame.key.get_just_pressed()
 
         if keys[pygame.K_SPACE]: # fix this shit
-            if self.wait <= 0:
-                self.wait = 100
-                if obj.name == 'base':
-                    self.rect.x, self.rect.y = obj.rect.x-obj.width, obj.rect.y
-                    self.location = obj.name
-                elif obj.name == 'map2':
-                    self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
-                    self.location = obj.name
-                elif obj.name == 'map3':
-                    self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
-                    self.location = obj.name
+            if obj.name == 'base':
+                self.right, self.left, self.up, self.down, = False, True, False, False
+                self.location = obj.name
+                self.nav = True
+
+            elif obj.name == 'map2':
+                self.right, self.left, self.up, self.down, = True, False, False, False
+                self.location = obj.name
+                self.nav = True
+
+            elif obj.name == 'map3':
+                self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
+                self.location = obj.name
+                self.nav = True
+            self.walk = 0
+
+    def navigate(self):
+        if self.nav:
+            if self.location == 'map2':
+                self.rect.x, self.rect.y = self.MapObjects[1].rect.x, self.MapObjects[1].rect.y
+            if self.location == 'base':
+                self.rect.x, self.rect.y = self.MapObjects[0].rect.x, self.MapObjects[0].rect.y
+
+        self.nav = False
 
     # for picking items and opening a chestboxes
     def pick(self, obj):

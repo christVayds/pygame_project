@@ -7,7 +7,7 @@ class TileMap():
         self.images = []
         self.x = x
         self.y = y
-        self.name = 'map'
+        self.name = 'Map2'
         self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/border_1.png").convert(), (self.tilesize, self.tilesize)))
         self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/floor_2.png").convert(), (self.tilesize, self.tilesize)))
         self.images.append(pygame.transform.scale(pygame.image.load("characters/objects/wall_1.png").convert(), (self.tilesize, self.tilesize)))

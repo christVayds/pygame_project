@@ -38,7 +38,9 @@
 
         {"name": "machine_1", "type": "animated", "rect": "(610, 200, 84, 120)", "comment": "animated"},
 
-        {"name": "base", "type": "navigation", "rect": "(25, 100, 50, 80)"}
+        {"name": "base", "type": "navigation", "rect": "(25, 150, 50, 80)"},
+
+        {"name": "hidden", "type": "hidden2", "rect": "(0, 0, 25, 300)"}
     ],
 
     "Enemies_m2": [
