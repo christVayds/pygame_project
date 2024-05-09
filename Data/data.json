@@ -8,26 +8,34 @@
         {"name": "box_1", "type": "other", "rect": "(240, 60, 60, 55)", "items": ["icon14_01"]},
         {"name": "table_1", "type": "other", "rect": "(600, 150, 60, 60)"},
         {"name": "book_1", "type": "other", "rect": "(615, 150, 30, 30)"},
-        {"name": "crafting_table", "type": "other", "rect": "(25, 275, 64, 128)"},
+
+        {"name": "crafting_table", "type": "other2", "rect": "(25, 275, 64, 128)"},
+        {"name": "keyboard_1", "type": "other2", "rect": "(160, 340, 60, 60)"},
+        {"name": "keyboard_1", "type": "other2", "rect": "(240, 340, 60, 60)"},
+        {"name": "vault_1", "type": "other2", "rect": "(525, 335, 130, 64)"},
 
         {"name": "monitor_1", "type": "animated", "rect": "(150, 25, 70, 70)"},
         {"name": "monitor_1", "type": "animated", "rect": "(70, 25, 70, 70)"},
+        {"name": "timeline_1", "type": "animated", "rect": "(375, 335, 130, 64)"},
 
-        {"name": "map2", "type": "navigation", "rect": "(700, 225, 50, 75)"},
+        {"name": "map2", "type": "navigation", "rect": "(700, 225, 50, 75)", "distination": "map2_base"},
+        {"name": "map3", "type": "navigation", "rect": "(300, 425, 75, 75)", "distination": "map3_base"},
 
         {"name": "hidden", "type": "hidden2", "rect": "(0, 0, 25, 400)", "comment": "left side"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 0, 25, 175)", "comment": "right side"},
         {"name": "hidden", "type": "hidden2", "rect": "(750, 150, 25, 175)", "comment": "door 2"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 300, 75, 25)", "comment": "door 2"},
         {"name": "hidden", "type": "hidden2", "rect": "(675, 175, 75, 25)", "comment": "door 2"},
-        {"name": "crafting_table", "type": "hidden2", "rect": "(25, 275, 64, 128)"}
+        {"name": "hidden", "type": "hidden2", "rect": "(275, 400, 25, 75)"},
+        {"name": "hidden", "type": "hidden2", "rect": "(375, 400, 25, 75)"},
+        {"name": "hidden", "type": "hidden2", "rect": "(300, 475, 75, 25)"},
+        {"name": "hidden", "type": "hidden2", "rect": "(100, 400, 75, 25)", "comment": "between carfting table and keyboards"}
     ],
 
     "Map2": [
         {"name": "shelf_1", "type": "other", "rect": "(350, 30, 75, 75)"},
         {"name": "shelf_1", "type": "other", "rect": "(440, 30, 75, 75)"},
         {"name": "shelf_1", "type": "other", "rect": "(530, 30, 75, 75)"},
-        {"name": "shelf_1", "type": "other", "rect": "(620, 30, 75, 75)"},
         {"name": "drawer_1", "type": "other", "rect": "(250, 25, 70, 70)"},
         {"name": "drawer_1", "type": "other", "rect": "(180, 25, 70, 70)"},
         {"name": "drawer_1", "type": "other", "rect": "(110, 25, 70, 70)"},
@@ -36,11 +44,15 @@
         {"name": "painting_2", "type": "other", "rect": "(470, 225, 50, 50)"},
         {"name": "painting_3", "type": "other", "rect": "(540, 225, 50, 50)"},
 
-        {"name": "machine_1", "type": "animated", "rect": "(610, 200, 84, 120)", "comment": "animated"},
+        {"name": "machine_1", "type": "animated", "rect": "(610, 25, 84, 120)", "comment": "animated"},
 
-        {"name": "base", "type": "navigation", "rect": "(25, 150, 50, 80)"},
+        {"name": "base", "type": "navigation", "rect": "(25, 150, 50, 80)", "distination": "base_map2"},
 
         {"name": "hidden", "type": "hidden2", "rect": "(0, 0, 25, 300)"}
+    ],
+
+    "Map3": [
+        {"name": "base", "type": "navigation", "rect": "(50, 400, 75, 50)", "distination": "base_map3"}
     ],
 
     "Enemies_m2": [

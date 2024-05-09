@@ -29,9 +29,6 @@ class Player(pygame.sprite.Sprite):
         self.up = False
         self.down = False
 
-        # handling location
-        self.location = 'base'
-
         # image and animation
         self.c_left = []
         self.c_right = []
@@ -44,9 +41,13 @@ class Player(pygame.sprite.Sprite):
         # inventories / items list
         self.inventories = []
 
+        # handling location
+        self.location = 'base'
+
         # map objects
         self.nav = False
-        self.MapObjects = []
+        self.MapObjects = {}
+        self.respawn = 'base'
 
     def draw(self, screen, allObj):
 
@@ -165,7 +166,7 @@ class Player(pygame.sprite.Sprite):
 
             # if the player collide with the objects
             if pygame.sprite.collide_mask(self, obj):
-                if obj._type == 'hidden2': # no y-sorting objects
+                if obj._type in ['hidden2', 'other2']: # no y-sorting objects
                     if self.left:
                         self.rect.left = obj.rect.right
                     elif self.right:
@@ -207,34 +208,43 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE]: # fix this shit
             if obj.name == 'base':
                 self.right, self.left, self.up, self.down, = False, True, False, False
+                self.respawn = self.location
                 self.location = obj.name
                 self.nav = True
 
             elif obj.name == 'map2':
                 self.right, self.left, self.up, self.down, = True, False, False, False
+                self.respawn = self.location
                 self.location = obj.name
                 self.nav = True
 
             elif obj.name == 'map3':
-                self.rect.x, self.rect.y = obj.rect.x, obj.rect.y
+                self.right, self.left, self.up, self.down, = False, False, True, False
+                self.respawn = self.location
                 self.location = obj.name
                 self.nav = True
+                
             self.walk = 0
 
     def navigate(self):
         if self.nav:
-            if self.location == 'map2':
-                self.rect.x, self.rect.y = self.MapObjects[1].rect.x, self.MapObjects[1].rect.y
-            if self.location == 'base':
-                self.rect.x, self.rect.y = self.MapObjects[0].rect.x, self.MapObjects[0].rect.y
+            self.rect.x, self.rect.y = self.MapObjects[f'{self.respawn}_{self.location}'].rect.x, self.MapObjects[f'{self.respawn}_{self.location}'].rect.y
+
+            # if self.location == 'map2':
+            #     # self.rect.x, self.rect.y = self.MapObjects['base'].rect.x, self.MapObjects['base'].rect.y
+            #     self.rect.x, self.rect.y = self.MapObjects[self.respawn].rect.x, self.MapObjects[self.respawn].rect.y
+            #     print('location:', self.MapObjects)
+            # # elif self.location == 'map3':
+            # #     self.rect.x, self.rect.y = self.MapObjects[self.location].rect.x, self.MapObjects[self.location].rect.y
+            # elif self.location == 'base':
+            #     self.rect.x, self.rect.y = self.MapObjects[self.respawn].rect.x, self.MapObjects[self.respawn].rect.y
 
         self.nav = False
 
     # for picking items and opening a chestboxes
     def pick(self, obj):
         # click space bar to pick the object or open the object
-
-        keys = pygame.key.get_pressed()
+        keys = pygame.key.get_just_pressed()
 
         if keys[pygame.K_SPACE]:
             for item in obj.loaded:

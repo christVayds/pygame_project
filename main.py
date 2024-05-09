@@ -37,7 +37,7 @@ pygame.init()
 # screen
 windowSize = {'width': 700, 'height': 500} # size of the display
 window = pygame.display.set_mode((windowSize['width'], windowSize['height']))
-pygame.display.set_caption('End Of Time')
+pygame.display.set_caption('Back In Time')
 
 # clock and FPS - frame per second
 clock = pygame.time.Clock()
@@ -59,7 +59,7 @@ map_2 = Map_2.TileMap(25, 0, 0)
 map_3 = Map_3.TileMap(25, 0, 0)
 
 # GUIs (not yet draw)
-itemsGUI = UI((windowSize['width'] - 260) / 2, (windowSize['height'] - 70), 260, 60, 'itembar_4')
+itemsGUI = UI((windowSize['width'] - 244) / 2, (windowSize['height'] - 70), 244, 60, 'itemsbar_6')
 
 # pause button
 pauseButton = UI((windowSize['width'] - 60), 10, 40, 40, 'pause_btn')
@@ -78,6 +78,7 @@ readData = Read('Data/data.json')
 readData.read() # read all data
 readData.strToTuple('Base') # make all string tuple in Map1 to tuple
 readData.strToTuple('Map2')
+readData.strToTuple('Map3')
 readData.strToTuple('Enemies_m2')
 
 # CREATIONS
@@ -85,13 +86,24 @@ readData.strToTuple('Enemies_m2')
 # for loading screen / intro
 title = [Object((windowSize['width'] - 200) / 2, (windowSize['height'] - 350) / 2, 200, 200, 'animated', 'title_2')]
 
+######## MAPS #########
+
 # create objects for blocks and other objects - Map 1 / base
 create_base = Create(window, player, readData.data['Base'])
 create_base.create()
 
-# create objects for blocks and other objects - Map 1 / base
+# create objects for blocks and other objects - Map 2
 create_map2 = Create(window, player, readData.data['Map2'])
 create_map2.create()
+
+# create objects for blocks and other objects - Map 3
+create_map3 = Create(window, player, readData.data['Map3'])
+create_map3.create()
+
+# append Maps to player's map list of mapObjects
+# player.MapObjects = [create_base.mapObject, create_map2.mapObject]
+
+######## ENEMIES #########
 
 # enemies for map 2
 enemies_map2 = Create(window, player, readData.data['Enemies_m2'])
@@ -103,12 +115,11 @@ camera = Camera(player, windowSize)
 # LIST of all objects in map 1 / Base
 allObjects1 = create_base.listofObjects+[base]
 allObjects2 = create_map2.listofObjects+[map_2]+enemies_map2.listEnemies
+allObjects3 = create_map3.listofObjects+[map_3]
 
 # create.listofObjects is a list of all objecst
 # listenemies is a list of all enemies
 # listOfMap is a list of map tiles
-
-player.MapObjects = [create_base.mapObject, create_map2.mapObject]
 
 # draw base map function
 def draw_base():
@@ -158,14 +169,20 @@ def draw_map2():
 
     pygame.display.flip()
 
-def draw_map3():
+# not yet done
+def draw_map3(): 
     window.fill((54, 54, 54))
 
     map_3.drawMap(window)
 
-    player.draw(window, [])
+    create_map3.draw()
 
-    camera.move([player,map_3])
+    # draw player in map3
+    player.draw(window, create_map3.listofObjects[1:])
+    player.navigate()
+
+    # camera fot map 3
+    camera.move(allObjects3)
 
     for gui in listGUIs:
         gui.draw(window)

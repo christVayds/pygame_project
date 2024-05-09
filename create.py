@@ -6,14 +6,14 @@ class Create:
     def __init__(self, screen, player, list_obj):
         self.screen = screen
         self.player = player
-        self.list_obj = list_obj
+        self.list_obj = list_obj #list of objects for map
 
         # retun this list
         self.listofObjects = [player]
         self.listEnemies = []
 
         # map object
-        self.mapObject = None
+        # self.mapObject = []
 
     def create(self):
         for obj in self.list_obj:
@@ -21,11 +21,9 @@ class Create:
             if obj['name'] in ['box_1']:
                 object.loadChestBox(obj['items'])
             if obj['type'] == 'navigation':
-                self.mapObject = object
+                # self.mapObject.append(object)
+                self.player.MapObjects[obj['distination']] = object
             self.listofObjects.append(object)
-
-    def reccreate(self):
-        pass
                     
     def draw(self):
         for obj in self.listofObjects:
