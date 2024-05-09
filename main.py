@@ -84,7 +84,10 @@ readData.strToTuple('Enemies_m2')
 # CREATIONS
 
 # for loading screen / intro
-title = [Object((windowSize['width'] - 200) / 2, (windowSize['height'] - 350) / 2, 200, 200, 'animated', 'title_2')]
+title = [
+    Object((windowSize['width'] - 200) / 2, (windowSize['height'] - 350) / 2, 200, 200, 'animated', 'title_2'),
+    Object((windowSize['width'] - 192) / 2, windowSize['height'] - 150, 192, 48, 'other', 'credits')
+]
 
 ######## MAPS #########
 
@@ -112,7 +115,7 @@ enemies_map2.create_enemies()
 # camera
 camera = Camera(player, windowSize)
 
-# LIST of all objects in map 1 / Base
+# Listed all objects, maps and enemies for camera tracking
 allObjects1 = create_base.listofObjects+[base]
 allObjects2 = create_map2.listofObjects+[map_2]+enemies_map2.listEnemies
 allObjects3 = create_map3.listofObjects+[map_3]
@@ -124,7 +127,7 @@ allObjects3 = create_map3.listofObjects+[map_3]
 # draw base map function
 def draw_base():
 
-    window.fill((54, 54, 54))
+    window.fill((10, 10, 10))
 
     # camera
     camera.move(allObjects1)
@@ -146,7 +149,7 @@ def draw_base():
 
 # draw MAP 2 funtion
 def draw_map2():
-    window.fill((54, 54, 54))
+    window.fill((10, 10, 10))
 
     # camera for map 2
     camera.move(allObjects2)
@@ -158,7 +161,7 @@ def draw_map2():
     create_map2.draw()
 
     # enemies
-    # enemies_map2.draw_enemy(create_map2.listofObjects[1:]) # uncomment later
+    enemies_map2.draw_enemy(create_map2.listofObjects[1:]) # uncomment later
 
     # draw player
     player.draw(window, create_map2.listofObjects[1:])
@@ -171,7 +174,7 @@ def draw_map2():
 
 # not yet done
 def draw_map3(): 
-    window.fill((54, 54, 54))
+    window.fill((10, 10, 10))
 
     map_3.drawMap(window)
 
@@ -193,10 +196,12 @@ def draw_map3():
 def Opening():
     global current, title
 
-    window.fill((54, 54, 54))
+    window.fill((10, 10, 10))
 
     # draw animated title
-    title[0].draw(window)
+    for ttle in title:
+        ttle.draw(window)
+    # title[0].draw(window)
 
     # slow down the loading animation
     load.draw(window)
@@ -206,7 +211,7 @@ def Opening():
             if timer.coolDown(5):
                 player.location = 'base'
                 current = flow[2]
-                del title # remove or delete this loaded image
+                del title # remove or delete all loaded images
 
     pygame.display.flip()
 

@@ -37,10 +37,6 @@ class Object(pygame.sprite.Sprite):
     def draw(self, screen):
         # Optimizing rendering objects - rendering the object when the object is in the display
         # if x position is greater than the negative side of the object and if x position is less than the size of the width of the screen and y position is greater than the size of the object and y position is less than the height of the screen then render the image of tile
-        
-        # if self._type not in ['hidden', 'hidden2', 'other', 'other2', 'animated', 'animated_once', 'navigation']:
-        #     if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
-        #         screen.blit(self.nonAnimated, self.rect)
 
         if self._type in ['other', 'other2']:
             if self.rect.x > -self.rect.width and self.rect.x < 700 and self.rect.y > -self.height and self.rect.y < 500:
@@ -79,10 +75,6 @@ class Object(pygame.sprite.Sprite):
     
     # load non animated objects here
     def loadNonAnimated(self):
-        # if self._type not in ['hidden', 'hidden2', 'other', 'other2', 'animated', 'animated_once', 'navigation']:
-        #     image = pygame.image.load(f'characters/obj2/{self._type}/{self.name}.png')
-        #     self.nonAnimated = pygame.transform.scale(image, (self.width, self.height))
-
         if self._type in ['other', 'other2']:
             image = pygame.image.load(f'characters/objects/{self.name}.png')
             self.nonAnimated = pygame.transform.scale(image, (self.width, self.height))

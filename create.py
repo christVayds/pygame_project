@@ -12,16 +12,12 @@ class Create:
         self.listofObjects = [player]
         self.listEnemies = []
 
-        # map object
-        # self.mapObject = []
-
     def create(self):
         for obj in self.list_obj:
             object = Object(obj['rect'][0], obj['rect'][1], obj['rect'][2], obj['rect'][3], obj['type'], obj['name'])
             if obj['name'] in ['box_1']:
                 object.loadChestBox(obj['items'])
             if obj['type'] == 'navigation':
-                # self.mapObject.append(object)
                 self.player.MapObjects[obj['distination']] = object
             self.listofObjects.append(object)
                     
@@ -39,4 +35,4 @@ class Create:
     def draw_enemy(self, objects):
         for enemy in self.listEnemies:
             enemy.draw(self.screen, objects)
-            enemy.follow(self.player)
+            enemy.follow(self.player) # follow the player

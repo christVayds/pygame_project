@@ -223,21 +223,12 @@ class Player(pygame.sprite.Sprite):
                 self.respawn = self.location
                 self.location = obj.name
                 self.nav = True
-                
+
             self.walk = 0
 
     def navigate(self):
         if self.nav:
             self.rect.x, self.rect.y = self.MapObjects[f'{self.respawn}_{self.location}'].rect.x, self.MapObjects[f'{self.respawn}_{self.location}'].rect.y
-
-            # if self.location == 'map2':
-            #     # self.rect.x, self.rect.y = self.MapObjects['base'].rect.x, self.MapObjects['base'].rect.y
-            #     self.rect.x, self.rect.y = self.MapObjects[self.respawn].rect.x, self.MapObjects[self.respawn].rect.y
-            #     print('location:', self.MapObjects)
-            # # elif self.location == 'map3':
-            # #     self.rect.x, self.rect.y = self.MapObjects[self.location].rect.x, self.MapObjects[self.location].rect.y
-            # elif self.location == 'base':
-            #     self.rect.x, self.rect.y = self.MapObjects[self.respawn].rect.x, self.MapObjects[self.respawn].rect.y
 
         self.nav = False
 
@@ -272,7 +263,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = pygame.Rect((x, y), (self.width, self.height))
         self.image = pygame.Surface((self.width, self.height))
 
-        self.speed = random.choice([2.5, 3, 3.5])
+        self.speed = random.choice([2.5, 3, 3.5, 4])
 
         # facing
         self.left = True
@@ -367,7 +358,7 @@ class Enemy(pygame.sprite.Sprite):
     # enemies collision
     def handleCollision(self, objects):
         for object in objects:
-            if object._type != 'hidden2':
+            if object._type not in ['hidden2', 'other2']:
                 if self.left or self.right:
                     if self.rect.y > object.rect.y:
                         object.e_front.append(self)
@@ -375,7 +366,7 @@ class Enemy(pygame.sprite.Sprite):
                         if self in object.e_front:
                             object.e_front.remove(self)
             if pygame.sprite.collide_mask(self, object):
-                if object._type != 'hidden2':
+                if object._type not in ['hidden2', 'other2']:
                     if self.left:
                         if self.rect.y <= object.rect.y:
                             self.rect.left = object.rect.right
