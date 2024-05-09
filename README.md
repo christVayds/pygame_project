@@ -21,10 +21,11 @@ Date Started: April 16, 2024
 
 Typess of Objects:
   1. hidden - with y-sorting
-  2. Hidden2 - no y-sorting
+  2. hidden2 - no y-sorting
   3. animated - animated objects
   4. animated_once - animataed objects that only animate once or triggered
-  5. other - other objects like book shelf, table etc.
+  5. navigation - navigation point for navigating to other maps
+  6. other - other objects like book shelf, table etc.
 
 Maps:
   1. baseMap - The base or the home map, the time machine place in here.
